@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/uniandes.academia.generator/src-gen" editDirectory="/uniandes.academia.generator.edit/src"
+    editorDirectory="/uniandes.academia.generator.editor/src" modelPluginID="uniandes.academia.generator"
+    forceOverwrite="true" modelName="Generator" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="uniandes.academia.generator.edit"
+    editorPluginID="uniandes.academia.generator.editor" runtimeVersion="2.10">
+  <genPackages prefix="Generator" basePackage="uniandes.academia" disposableProviderFactory="true"
+      fileExtensions="angen" ecorePackage="Generator.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Generator.ecore#//EnumType">
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumType/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumType/NUMBER"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumType/ANY"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumType/DATE"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumType/SearchComboBox"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Generator.ecore#//EnumMethodType">
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumMethodType/POST"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumMethodType/GET"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumMethodType/UPDATE"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumMethodType/DELETE"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumMethodType/PATCH"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumMethodType/PUT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Generator.ecore#//EnumLayout">
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumLayout/LIST"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumLayout/GALLERY"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Generator.ecore#//EnumLanguage">
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumLanguage/ES"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumLanguage/EN"/>
+    </genEnums>
+    <genClasses ecoreClass="Generator.ecore#//Root">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Root/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//AbstractElement"/>
+    <genClasses ecoreClass="Generator.ecore#//PackageDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//PackageDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//PackageDeclaration/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Application">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Application/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Application/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Modules">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Modules/modules"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Services">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Services/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Services/baseUrl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Services/services"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Components">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Components/components"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Models">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Models/models"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Configuration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Configuration/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Configuration/onlyComponents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Configuration/language"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Module">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Module/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Module/parent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Module/imports"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Module/components"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Model">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Model/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Model/attributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Model/idAtribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Model/nameAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Attribute/component"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/isRequired"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//VisualModule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//VisualModule/exports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//VisualModule/routes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//VisualModule/show"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//VisualModule/defaultRoute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//VisualModule/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//ContainerModule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//ContainerModule/exports"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Component">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Component/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//ComponentContainer"/>
+    <genClasses ecoreClass="Generator.ecore#//ComponentBasic">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//ComponentBasic/modelData"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Crud">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Crud/showAsGallery"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Crud/enableMock"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/create"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/update"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/list"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/listNum"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/deleteItem"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/get"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//SearchComboBox">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//SearchComboBox/service"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Service">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Service/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Service/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Service/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Service/collectionName"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

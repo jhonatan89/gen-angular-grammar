@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="generator" nsURI="http://www.academia.uniandes/Generator" nsPrefix="generator">
+  <eClassifiers xsi:type="ecore:EClass" name="Root">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//AbstractElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PackageDeclaration" eSuperTypes="#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//AbstractElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Application" eSuperTypes="#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//AbstractElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Modules" eSuperTypes="#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modules" upperBound="-1"
+        eType="#//Module" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Services" eSuperTypes="#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="baseUrl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="services" upperBound="-1"
+        eType="#//Service" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Components" eSuperTypes="#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
+        eType="#//Component" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Models" eSuperTypes="#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="models" upperBound="-1"
+        eType="#//Model" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Configuration">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="onlyComponents" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="#//EnumLanguage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Module">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Module"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" unique="false"
+        upperBound="-1" eType="#//Module"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" unique="false"
+        upperBound="-1" eType="#//Component"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
+        eType="#//Attribute" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idAtribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nameAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Attribute">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EnumType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//ComponentBasic"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isRequired" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VisualModule" eSuperTypes="#//Module">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exports" unique="false"
+        upperBound="-1" eType="#//Module"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="routes" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="show" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultRoute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EnumLayout"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContainerModule" eSuperTypes="#//Module">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exports" unique="false"
+        upperBound="-1" eType="#//Component"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Component">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentContainer" eSuperTypes="#//Component"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentBasic" eSuperTypes="#//Component">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelData" eType="#//Model"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Crud" eSuperTypes="#//ComponentBasic">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showAsGallery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enableMock" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="create" eType="#//Service"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="update" eType="#//Service"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="list" eType="#//Service"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="listNum" eType="#//Service"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deleteItem" eType="#//Service"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="get" eType="#//Service"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SearchComboBox" eSuperTypes="#//ComponentBasic">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="service" eType="#//Service"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Service">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EnumMethodType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="collectionName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EnumType">
+    <eLiterals name="STRING" literal="String"/>
+    <eLiterals name="NUMBER" value="1" literal="Number"/>
+    <eLiterals name="BOOLEAN" value="2" literal="Boolean"/>
+    <eLiterals name="ANY" value="3" literal="Any"/>
+    <eLiterals name="DATE" value="4" literal="Date"/>
+    <eLiterals name="SearchComboBox" value="5" literal="SearchComboBox"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EnumMethodType">
+    <eLiterals name="POST" literal="POST"/>
+    <eLiterals name="GET" value="1" literal="GET"/>
+    <eLiterals name="UPDATE" value="2" literal="UPDATE"/>
+    <eLiterals name="DELETE" value="3" literal="DELETE"/>
+    <eLiterals name="PATCH" value="4" literal="PATCH"/>
+    <eLiterals name="PUT" value="5" literal="PUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EnumLayout">
+    <eLiterals name="LIST" literal="List"/>
+    <eLiterals name="GALLERY" value="1" literal="GALLERY"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EnumLanguage">
+    <eLiterals name="ES" literal="Spanish"/>
+    <eLiterals name="EN" value="1" literal="English"/>
+  </eClassifiers>
+</ecore:EPackage>
