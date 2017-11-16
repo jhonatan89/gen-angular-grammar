@@ -1,0 +1,9 @@
+grammar uniandes.academia.Generator with org.eclipse.xtext.common.Terminals
+
+generate generator "http://www.academia.uniandes/Generator"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
