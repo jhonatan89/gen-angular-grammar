@@ -30,6 +30,13 @@ context generator::Services inv DuplicatedServiceGroup('Duplicated "ServiceGroup
 context generator::Service inv DuplicatedService('Duplicated "Service" name: ' + self.name):
 		Service.allInstances()->forAll(serv | serv <> self implies serv.name <> self.name)
 		
+context generator::Services inv DuplicatedServiceGroupImport('Duplicated "ServiceGroup" name: ' + self.name):
+		PackageDeclaration.allInstances()->collect(Services)->forAll(servGrp | servGrp <> self implies servGrp.name <> self.name)
+		
+context generator::Service inv DuplicatedServiceImport('Duplicated "Service" name: ' + self.name):
+		PackageDeclaration.allInstances()->collect(Services)->collect(Service)->forAll(serv | serv <> self implies serv.name <> self.name)
+		
+		
 /* Visual Module */
 
 context generator::VisualModule inv NoRouteFound('No route found. There must be at least one route defined'):

@@ -1,0 +1,40 @@
+package models{
+	
+	Models {
+		Model Book{
+			attributes: [
+				{attributeName: id, type: Number}, 
+				{attributeName: name, type:String, isRequired: true}, 
+				{attributeName: editorial, type: String, isRequired: true},
+				{attributeName: author, type:String, isRequired: true},
+				{attributeName: price, type:Number, isRequired: true},
+//				{attributeName: university, type:SearchComboBox, component: university, isRequired: true},
+			];
+			idAtribute: id;
+			showAttributeList: name;
+		}
+		Model Author{
+			attributes: [
+				{attributeName: id, type: Number}, 
+				{attributeName: name, type: String, isRequired: true}, 
+				{attributeName: age, type: Number, isRequired: true}, 
+				{attributeName: profile, type:String}
+			];
+			idAtribute: id;
+			showAttributeList: name;
+		}
+		Model University{
+			attributes: [
+				{attributeName: id, type: Number}, 
+				{attributeName: name, type: String, isRequired: true}, 
+				{attributeName: code, type: Number, isRequired: true}, 
+				{attributeName: contryName, type:String}
+			];
+			idAtribute: id;
+			showAttributeList: name;
+		}
+
+    }
+	
+	
+}

@@ -247,14 +247,48 @@
 	    <persistent value="true"/>
 	</extension>
 
-   <extension
+   <!--<extension
          point="org.eclipse.xtext.builder.participant">
       <participant
             class="uniandes.academia.ui.GeneratorExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
             fileExtensions="angen"
             >
       </participant>
-   </extension>
+   </extension>-->
+   <extension
+        point="org.eclipse.ui.handlers">
+     <handler
+           class="uniandes.academia.ui.GeneratorExecutableExtensionFactory:uniandes.academia.ui.handler.GenerationHandler"
+           commandId="uniandes.academia.ui.handler.GenerationCommand">
+     </handler>
+      
+  </extension>
+   
+  <extension
+        point="org.eclipse.ui.commands">
+        <command name="Generate XMI Model"
+              id="uniandes.academia.ui.handler.GenerationCommand">
+        </command>
+  </extension>
+   
+  <extension point="org.eclipse.ui.menus">
+    <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+        <command
+            commandId="uniandes.academia.ui.handler.GenerationCommand"
+            style="push">
+            <visibleWhen
+                  checkEnabled="false">
+                  <iterate>
+       <adapt type="org.eclipse.core.resources.IResource">
+          <test property="org.eclipse.core.resources.name" 
+                value="*.angen"/>
+       </adapt>
+    </iterate>
+            </visibleWhen>
+        </command>
+    </menuContribution>
+    </extension>
+   
    <extension
             point="org.eclipse.ui.preferencePages">
         <page

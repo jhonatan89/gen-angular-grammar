@@ -20,6 +20,7 @@ package services {
 		Service searchNumBooks {url: "books/searchNum",	type: GET}
 		Service getBook {url: "books/getBook",type: GET}
 		Service deleteBook {url: "books/deleteBook",type: DELETE}
+		
      }
      
      ServicesGroup Shared {
