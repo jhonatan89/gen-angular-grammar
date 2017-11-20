@@ -1,0 +1,48 @@
+[% import "../../../utils.egl"; %]
+import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { AppComponent } from './app.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ServiceMainLocator } from './service-locator-main';
+[% for(route in parent.routes ){ %]
+import { routes as [%=getRoutePath(route,0).firstToLowerCase()%]ChildRoutes } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePath(route,0).firstToLowerCase()%].module';
+import { [%=getRoutePath(route,1).firstToUpperCase()%] } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePath(route,0).firstToLowerCase()%].component';
+import { [%=getRoutePath(route,0).firstToUpperCase()%]Module } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePath(route,0).firstToLowerCase()%].module';
+[% } %]
+
+
+const routes: Routes = [
+[% var count = 0;%]
+[% for(route in parent.routes ){ %]
+	[% if(count==0){%]{path: '', redirectTo: '[%=getRoutePath(route,0).firstToLowerCase()%]', pathMatch: 'full'},[%}%]
+	{path: '[%=getRoutePath(route,0).firstToLowerCase()%]', component:[%=getRoutePath(route,1).firstToUpperCase()%], children: [%=getRoutePath(route,0).firstToLowerCase()%]ChildRoutes }
+	[% count = count + 1;%]
+[% } %]
+]
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot(routes),
+    NgbModule.forRoot(),
+    [% for(mod in  VisualModule.allInstances().select(m | m.parent = parent)){ %]
+    [%=mod.name.firstToUpperCase()%]Module [%if(hasMore){%],[%}%]
+	[% } %]
+  ],
+  providers: [ServiceMainLocator],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+

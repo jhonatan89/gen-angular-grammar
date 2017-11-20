@@ -1,0 +1,19 @@
+[% import "../../../../utils.egl"; 
+	var componentLabel = getRoutePathNested(component.name);
+
+%]
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-[%=componentLabel%]',
+  templateUrl: './[%=componentLabel%].component.html',
+  styleUrls: ['./[%=componentLabel%].component.css']
+})
+export class [%=component.name.firstToUpperCase()%]Component implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

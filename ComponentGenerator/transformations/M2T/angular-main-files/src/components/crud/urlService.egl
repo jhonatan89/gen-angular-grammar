@@ -1,0 +1,16 @@
+//[%=component.name.toUpperCase()%] URL SERVICE API
+
+
+export const BASE_URL: string = '/WebServicesAcademy/api/';
+
+[%if(component.create <> null){%]export const [%=component.create.name.toUpperCase()%]: string = [%=component.create.url%];[%}%]
+
+[%if(component.update <> null){%]export const [%=component.update.name.toUpperCase()%]: string = [%=component.update.url%];[%}%]
+
+[%if(component.list <> null){%]export const [%=component.list.name.toUpperCase()%]: string = [%=component.list.url%];[%}%]
+
+[%if(component.listNum <> null){%]export const [%=component.listNum.name.toUpperCase()%]: string = [%=component.listNum.url%];[%}%]
+
+[%if(component.deleteItem <> null){%]export const [%=component.deleteItem.name.toUpperCase()%]: string = [%=component.deleteItem.url%];[%}%]
+
+[%if(component.get <> null){%]export const [%=component.get.name.toUpperCase()%]: string = [%=component.get.url%];[%}%]

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ASCII"?>
+<generator:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:generator="http://www.academia.uniandes/Generator">
+  <elements xsi:type="generator:Application" name="LibraryApp">
+    <elements xsi:type="generator:Modules">
+      <modules xsi:type="generator:VisualModule" name="Main" defaultRoute="&quot;Library.LibraryComponent&quot;" type="GALLERY">
+        <routes>&quot;Library.LibraryComponent&quot;</routes>
+      </modules>
+      <modules xsi:type="generator:VisualModule" name="Library" parent="//@elements.0/@elements.0/@modules.0" defaultRoute="&quot;Book.BookCrudComponent&quot;">
+        <routes>&quot;Book.BookCrudComponent&quot;</routes>
+        <routes>&quot;Author.AuthorCrudComponent&quot;</routes>
+      </modules>
+      <modules xsi:type="generator:ContainerModule" name="Author" parent="//@elements.0/@elements.0/@modules.1" components="//@elements.0/@elements.1/@components.1" exports="//@elements.0/@elements.1/@components.1"/>
+      <modules xsi:type="generator:ContainerModule" name="Book" parent="//@elements.0/@elements.0/@modules.1" components="//@elements.0/@elements.1/@components.0" exports="//@elements.0/@elements.1/@components.0"/>
+    </elements>
+    <elements xsi:type="generator:Components">
+      <components xsi:type="generator:Crud" name="BookCrud" modelData="//@elements.0/@elements.2/@models.0" showAsGallery="true" enableMock="true" create="//@elements.2/@services.0" update="//@elements.2/@services.1" list="//@elements.2/@services.2" listNum="//@elements.2/@services.3" deleteItem="//@elements.2/@services.5" get="//@elements.2/@services.4"/>
+      <components xsi:type="generator:Crud" name="AuthorCrud" modelData="//@elements.0/@elements.2/@models.1" create="//@elements.1/@services.0" update="//@elements.1/@services.1" list="//@elements.1/@services.2" listNum="//@elements.1/@services.3" deleteItem="//@elements.1/@services.5" get="//@elements.1/@services.4"/>
+      <components xsi:type="generator:SearchComboBox" name="university" modelData="//@elements.0/@elements.2/@models.2" service="//@elements.3/@services.0"/>
+    </elements>
+    <elements xsi:type="generator:Models">
+      <models name="Book" idAtribute="id" nameAttribute="name">
+        <attributes name="id" type="Number"/>
+        <attributes name="name" isRequired="true"/>
+        <attributes name="editorial" isRequired="true"/>
+        <attributes name="author" isRequired="true"/>
+        <attributes name="price" type="Number" isRequired="true"/>
+      </models>
+      <models name="Author" idAtribute="id" nameAttribute="name">
+        <attributes name="id" type="Number"/>
+        <attributes name="name" isRequired="true"/>
+        <attributes name="age" type="Number" isRequired="true"/>
+        <attributes name="profile"/>
+      </models>
+      <models name="University" idAtribute="id" nameAttribute="name">
+        <attributes name="id" type="Number"/>
+        <attributes name="name" isRequired="true"/>
+        <attributes name="code" type="Number" isRequired="true"/>
+        <attributes name="contryName"/>
+      </models>
+    </elements>
+  </elements>
+  <elements xsi:type="generator:Services" name="AuthorServices" baseUrl="api">
+    <services name="createAuthor" url="&quot;authors/createAuthor&quot;" type="PUT"/>
+    <services name="updateAuthor" url="&quot;authors/updateAuthors&quot;"/>
+    <services name="searchAuthors" url="&quot;authors/searchCriterio&quot;" type="GET"/>
+    <services name="searchNumAuthors" url="&quot;authors/searchNum&quot;" type="GET"/>
+    <services name="getAuthor" url="&quot;authors/getAuthor&quot;" type="GET"/>
+    <services name="deleteAuthor" url="&quot;authors/deleteAuthor&quot;" type="DELETE"/>
+  </elements>
+  <elements xsi:type="generator:Services" name="BookServices" baseUrl="api">
+    <services name="createBook" url="&quot;books/createBook&quot;" type="PUT"/>
+    <services name="updateBook" url="&quot;books/updateAuthors&quot;"/>
+    <services name="searchBooks" url="&quot;books/searchBooks&quot;" type="GET"/>
+    <services name="searchNumBooks" url="&quot;books/searchNum&quot;" type="GET"/>
+    <services name="getBook" url="&quot;books/getBook&quot;" type="GET"/>
+    <services name="deleteBook" url="&quot;books/deleteBook&quot;" type="DELETE"/>
+  </elements>
+  <elements xsi:type="generator:Services" name="Shared" baseUrl="api">
+    <services name="getUniversity" url="&quot;searchUniversitiesServlet&quot;" type="GET" collectionName="universities"/>
+  </elements>
+</generator:Root>

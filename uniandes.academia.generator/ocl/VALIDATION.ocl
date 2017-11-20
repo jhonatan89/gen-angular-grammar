@@ -1,0 +1,48 @@
+import ecore : '../model/generated/Generator.ecore'
+
+context generator::Application inv NoMoreThanOneApplication('There must be only one Application'): 
+ 		Application.allInstances()->size() = 1
+ 		
+context generator::Application inv NoModuleFound('No module found. There must be at least one module defined'):
+		self.elements->select(m | m.oclIsTypeOf(Modules))->size() > 0
+		
+context generator::ContainerModule inv DuplicatedContainerModuleName('Duplicated "ContainerModule" name: ' + self.name):
+ 		ContainerModule.allInstances()->forAll(container | container <> self implies container.name <> self.name)
+ 
+context generator::VisualModule inv DuplicatedVisualModuleName('Duplicated "VisualModule" name: ' + self.name):
+ 		VisualModule.allInstances()->forAll(visual | visual <> self implies visual.name <> self.name)
+
+context generator::Crud inv DuplicatedCrudName('Duplicated "Crud" name: ' + self.name):
+ 		Crud.allInstances()->forAll(crud | crud <> self implies crud.name <> self.name)
+
+context generator::ComponentBasic inv DuplicatedComponentName('Duplicated "Component Basic" name: ' + self.name):
+ 		ComponentBasic.allInstances()->forAll(cmp | cmp <> self implies cmp.name <> self.name)
+
+context generator::Crud inv DuplicatedName('Duplicated "Crud" name: ' + self.name):
+ 		Crud.allInstances()->forAll(crud | crud <> self implies crud.name <> self.name)
+ 		
+context generator::Model inv DuplicatedModel('Duplicated "Model" name: ' + self.name):
+		Model.allInstances()->forAll(model | model <> self implies model.name <> self.name)
+		
+context generator::Services inv DuplicatedServiceGroup('Duplicated "ServiceGroup" name: ' + self.name):
+		Services.allInstances()->forAll(servGrp | servGrp <> self implies servGrp.name <> self.name)
+		
+context generator::Service inv DuplicatedService('Duplicated "Service" name: ' + self.name):
+		Service.allInstances()->forAll(serv | serv <> self implies serv.name <> self.name)
+		
+/* Visual Module */
+
+context generator::VisualModule inv NoRouteFound('No route found. There must be at least one route defined'):
+		self.routes->size() > 0
+
+context generator::VisualModule inv NoDefaultRouteFound('No default route found. There must be at least one route defined'):
+		self.defaultRoute->notEmpty() 
+		
+/* Attributes Model */
+
+context generator::Attribute inv DuplicatedAttributeName('Duplicated "Attribute" name: ' + self.name):
+		Attribute.allInstances()->forAll(attr | attr <> self implies (attr.name <> self.name or attr.oclContainer() <> self.oclContainer()))
+		
+
+		
+ 		

@@ -1,0 +1,69 @@
+[% 
+
+	import "../utils.egl";
+	
+	":::::Generating configuration files:::::".println();
+	var rootPath =  "angular-main-files/";
+
+	var packageTpl:Template:= TemplateFactory.load(rootPath +'package.egl');
+	packageTpl.populate("name", name);
+	packageTpl.generate(getRootLocation() + "package.json");
+	
+	var angularcli:Template:= TemplateFactory.load(rootPath + 'angular-cli.egl');
+	angularcli.populate("name", name);
+	angularcli.generate(getRootLocation() + ".angular-cli.json");
+	
+	var readme:Template:= TemplateFactory.load(rootPath + 'readme.egl');
+	readme.populate("name", name);
+	readme.generate(getRootLocation() + "README.md");
+	
+	var tsconfig:Template:= TemplateFactory.load(rootPath + 'tsconfig.egl');
+	tsconfig.generate(getRootLocation() + "tsconfig.json");
+	
+	var tslint:Template:= TemplateFactory.load(rootPath + 'tslint.egl');
+	tslint.generate(getRootLocation() + "tslint.json");
+	
+	var protractor:Template:= TemplateFactory.load(rootPath + 'protractor.egl');
+	protractor.generate(getRootLocation() + "protactor.conf.js");
+	
+	var karma:Template:= TemplateFactory.load(rootPath + 'karma-conf.egl');
+	karma.generate(getRootLocation() + "karma.conf.js");
+	
+	var gitIgnore:Template:= TemplateFactory.load(rootPath + 'gitignore.egl');
+	gitIgnore.generate(getRootLocation() + ".gitignore");
+	
+	var editor:Template:= TemplateFactory.load(rootPath + 'editor.egl');
+	editor.generate(getRootLocation() + ".editorconfig");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%]

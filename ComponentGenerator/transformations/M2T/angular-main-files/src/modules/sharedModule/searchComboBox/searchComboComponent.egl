@@ -1,0 +1,60 @@
+[% 
+   import "../../../../../utils.egl";
+   var componentPath = getRoutePathNested(component.name);
+%]
+
+
+import { [%=component.name.firstToUpperCase()%]Model } from './search-combo-box-[%=component.name.firstToLowerCase()%].model';
+import { SearchComboBox[%=component.name.firstToUpperCase()%]Service } from './search-combo-box-[%=component.name.firstToLowerCase()%].service';
+import { Component, OnInit, Input, EventEmitter, Output, SimpleChanges, OnChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
+@Component({
+  selector: 'app-[%=componentPath%]-search-combo-box',
+  templateUrl: './search-combo-box-[%=componentPath.toLowerCase()%].component.html',
+  styleUrls: ['./search-combo-box-[%=componentPath.toLowerCase()%].component.css']
+})
+export class SearchComboBox[%=component.name.firstToUpperCase()%]Component implements OnInit, OnChanges {
+
+  public model: any;
+  private [%=component.name.firstToLowerCase()%]: any = {};
+  @Input() [%=component.name.firstToLowerCase()%]Ctrl: FormControl;
+  @Input() searchParams: any;
+  @Input() preSelect[%=component.name.firstToUpperCase()%]: [%=component.name.firstToUpperCase()%]Model;
+  @Output() [%=component.name.firstToLowerCase()%]Selected: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(private searchComboBox[%=component.name.firstToUpperCase()%]Service: SearchComboBox[%=component.name.firstToUpperCase()%]Service) { }
+
+  ngOnInit(): void {
+    this.[%=component.name.firstToLowerCase()%]Ctrl.setValue(this.preSelect[%=component.name.firstToUpperCase()%].name);
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.preSelect[%=component.name.firstToUpperCase()%]) {
+      this.[%=component.name.firstToLowerCase()%]Ctrl.setValue(this.preSelect[%=component.name.firstToUpperCase()%].name);
+      this.model = this.preSelect[%=component.name.firstToUpperCase()%].name;
+    }
+  }
+
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap(term => term.length < 3 ? [] : this.searchComboBox[%=component.name.firstToUpperCase()%]Service.getAll[%=component.service.collectionName.firstToUpperCase()%](term,this.searchParams).map(value => value.[%=component.service.collectionName%].slice(0,10)));
+      
+
+  formatter = (item: {name: string}) => item.name;
+
+
+  selectedItem(event){
+    this.[%=component.name.firstToLowerCase()%]Selected.emit(event.item);
+  }
+
+}
+

@@ -1,0 +1,89 @@
+[%
+   import "../../../../utils.egl";
+   var modelPath = getRoutePathNested(component.modelData.name); 
+%]
+import { Injectable } from '@angular/core';
+import { Headers, Http, URLSearchParams, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { [%=component.modelData.name.firstToUpperCase()%]Model } from './[%=modelPath%].model';
+import { Locator[%=component.name.firstToUpperCase()%]Service } from './[%=getRoutePathNested(component.name)%]-locator.service';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+
+
+@Injectable()
+export class [%=component.name.firstToUpperCase()%]Service {
+
+  private headers: Headers;
+  private options: RequestOptions;
+  constructor(private http: Http, private urlService: Locator[%=component.name.firstToUpperCase()%]Service) {
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json, text/plain'});
+    this.options = new RequestOptions({ headers: this.headers,  withCredentials:true});
+  }
+
+  [%if(component.create <> null){%]
+  [%=component.create.name.firstToLowerCase()%]([%=component.modelData.name.toLowerCase()%]:[%=component.modelData.name.firstToUpperCase()%]Model){
+    let body = JSON.stringify([%=component.modelData.name.toLowerCase()%]);
+    return this.http.post(this.urlService.getUrlCreate(), body, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  [%}%]
+	
+  [%if(component.update <> null){%]
+  [%=component.update.name.firstToLowerCase()%]([%=component.modelData.name.toLowerCase()%]:[%=component.modelData.name.firstToUpperCase()%]Model){
+    let body = JSON.stringify([%=component.modelData.name.toLowerCase()%]); 
+    return this.http.put(this.urlService.getUrlUpdate(), body, this.options)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+  [%}%]
+
+  [%if(component.list <> null){%]
+  [%=component.list.name.firstToLowerCase()%](start: number, limit: number, query?: string){
+    let params = new URLSearchParams();
+    params.set('offset', start.toString());
+    params.set('limit', limit.toString());
+    return this.http.get(this.urlService.getUrlList(),{search:params})
+    .map(this.extractData)
+    .catch(this.handleError)  
+  }
+  [%}%]
+  
+  [%if(component.get <> null){%]
+  [%=component.get.name.firstToLowerCase()%](id: number){
+    return this.http.get(this.urlService.getUrlGetItem() + '/' + id)
+    .map(this.extractData)
+    .catch(this.handleError)
+  }
+  [%}%]
+
+  [%if(component.get <> null){%]
+  [%=component.listNum.name.firstToLowerCase()%](){
+     return this.http.get(this.urlService.getUrlListNum())
+     .map(this.extractData)
+     .catch(this.handleError)
+  }
+  [%}%]
+  
+  [%if(component.deleteItem <> null){%]	
+  [%=component.deleteItem.name.firstToLowerCase()%](id: number){
+    return this.http.delete(this.urlService.getUrlDeleteItem() + '/' + id, this.options)
+    .map(this.extractData)
+    .catch(this.handleError)
+  }
+ [%}%]
+
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body || {};
+  }
+
+  private handleError(error: Response){ 
+    return Observable.throw(error.statusText || 'Server error');
+  }
+
+
+}

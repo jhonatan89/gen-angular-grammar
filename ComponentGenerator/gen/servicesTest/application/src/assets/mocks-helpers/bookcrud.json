@@ -1,0 +1,111 @@
+
+[
+    	  {"id": 1,	
+	      "name": "BookCrud1", 	    
+	
+	      "editorial": "BookCrud1", 	    
+	
+	      "author": "BookCrud1", 	    
+	
+	      "price": 1 	    
+},	
+    	  {"id": 2,	
+	      "name": "BookCrud2", 	    
+	
+	      "editorial": "BookCrud2", 	    
+	
+	      "author": "BookCrud2", 	    
+	
+	      "price": 2 	    
+},	
+    	  {"id": 3,	
+	      "name": "BookCrud3", 	    
+	
+	      "editorial": "BookCrud3", 	    
+	
+	      "author": "BookCrud3", 	    
+	
+	      "price": 3 	    
+},	
+    	  {"id": 4,	
+	      "name": "BookCrud4", 	    
+	
+	      "editorial": "BookCrud4", 	    
+	
+	      "author": "BookCrud4", 	    
+	
+	      "price": 4 	    
+},	
+    	  {"id": 5,	
+	      "name": "BookCrud5", 	    
+	
+	      "editorial": "BookCrud5", 	    
+	
+	      "author": "BookCrud5", 	    
+	
+	      "price": 5 	    
+},	
+    	  {"id": 6,	
+	      "name": "BookCrud6", 	    
+	
+	      "editorial": "BookCrud6", 	    
+	
+	      "author": "BookCrud6", 	    
+	
+	      "price": 6 	    
+},	
+    	  {"id": 7,	
+	      "name": "BookCrud7", 	    
+	
+	      "editorial": "BookCrud7", 	    
+	
+	      "author": "BookCrud7", 	    
+	
+	      "price": 7 	    
+},	
+    	  {"id": 8,	
+	      "name": "BookCrud8", 	    
+	
+	      "editorial": "BookCrud8", 	    
+	
+	      "author": "BookCrud8", 	    
+	
+	      "price": 8 	    
+},	
+    	  {"id": 9,	
+	      "name": "BookCrud9", 	    
+	
+	      "editorial": "BookCrud9", 	    
+	
+	      "author": "BookCrud9", 	    
+	
+	      "price": 9 	    
+},	
+    	  {"id": 10,	
+	      "name": "BookCrud10", 	    
+	
+	      "editorial": "BookCrud10", 	    
+	
+	      "author": "BookCrud10", 	    
+	
+	      "price": 10 	    
+},	
+    	  {"id": 11,	
+	      "name": "BookCrud11", 	    
+	
+	      "editorial": "BookCrud11", 	    
+	
+	      "author": "BookCrud11", 	    
+	
+	      "price": 11 	    
+},	
+    	  {"id": 12,	
+	      "name": "BookCrud12", 	    
+	
+	      "editorial": "BookCrud12", 	    
+	
+	      "author": "BookCrud12", 	    
+	
+	      "price": 12 	    
+}	
+]

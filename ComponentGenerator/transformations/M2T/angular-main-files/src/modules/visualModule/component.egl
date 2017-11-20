@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-[%= module.name.toLowerCase() %]',
+  templateUrl: './[%= module.name.toLowerCase() %].component.html',
+  styleUrls: ['./[%= module.name.toLowerCase() %].component.css']
+})
+export class [%= module.name.firstToUpperCase() %]Component implements OnInit{
+	
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

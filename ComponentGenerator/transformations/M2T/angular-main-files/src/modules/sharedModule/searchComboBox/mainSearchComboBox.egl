@@ -1,0 +1,37 @@
+[%
+
+import "../../../../../utils.egl";
+
+	var rootPath = 'angular-main-files/src/modules/sharedModule/searchComboBox/';
+	var relativeComponentLocation = 'search-combo-box-' + getRoutePathNested(component.name);
+	
+	
+	var searchComponent:Template:= TemplateFactory.load(rootPath + 'searchComboComponent.egl');
+	component.name.println("--->aquui");
+	searchComponent.populate("component", component);
+	searchComponent.generate(getRootLocation() + "src/app/shared/" + relativeComponentLocation + "/" + relativeComponentLocation +  ".component.ts" );
+	
+	var searchTpl:Template:= TemplateFactory.load(rootPath + 'searchComboTemplate.egl');
+	searchTpl.populate("component", component);
+	searchTpl.generate(getRootLocation() + "src/app/shared/" + relativeComponentLocation + "/" + relativeComponentLocation + ".component.html" );
+	
+	
+	var searchStyles:Template:= TemplateFactory.load(rootPath + 'searchComboStyles.egl');
+	searchStyles.populate("component", component);
+	searchStyles.generate(getRootLocation() + "src/app/shared/" + relativeComponentLocation + "/" + relativeComponentLocation + ".component.css" );
+	
+	
+	var searchService:Template:= TemplateFactory.load(rootPath + 'searchComboService.egl');
+	searchService.populate("component", component);
+	searchService.generate(getRootLocation() + "src/app/shared/" + relativeComponentLocation + "/" + relativeComponentLocation + ".service.ts" );
+
+	var searchModel:Template:= TemplateFactory.load(getModelTemplatePath() + 'model.egl');
+	searchModel.populate("name", component.name);
+	searchModel.populate("modelData", component.modelData);
+	searchModel.generate(getRootLocation() + "src/app/shared/" + relativeComponentLocation + "/" + relativeComponentLocation + ".model.ts" );
+	
+	
+	component.name.println("Created SearchBox Component--> ");
+	
+
+%]

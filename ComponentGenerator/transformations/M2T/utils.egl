@@ -1,0 +1,125 @@
+[%
+
+	// Utils 
+	
+	operation getRootLocation(): String {
+		return "./application/";
+	}
+	
+	operation getAssetsLocation(): String {
+		return "./application/src/assets/";
+	}
+	
+	operation getModelTemplatePath(): String{
+		return "angular-main-files/src/models/";
+	}
+	
+	operation getModuleLocation(name: String): String{
+		return getRootLocation() + "src/app/" + name.toLowerCase() + "/";
+	}
+	
+	operation getComponentLocation(mod: String, location: String): String{
+		return 	getModuleLocation(mod) + location;
+	}
+	
+	operation getFirstLetterLowerCase(word: String): String {
+		return word.firstToLowerCase();
+	}
+	
+	operation getModuleLocationFull(mod: Module):String {
+		var result;
+		if(mod.parent <> null){
+			result = getModuleLocationFull(mod.parent) + "/" + mod.name.toLowerCase();
+		}else{
+			result = getRootLocation() + "src/app/" + result;
+		}
+		return result;
+	}
+	
+	operation getComponentLocationFull(comp: Component):String {
+		
+		for(containerMod in ContainerModule.allInstances().select(e | e.components <> null)){
+			if(containerMod.components.includes(comp)){
+				return getModuleLocationFull(containerMod) + "/" + getRoutePathNested(comp.name);//Return module's location for first container module. 
+			}
+		}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+	
+		for(visualMod in VisualModule.allInstances().select(e | e.components <> null)){
+			if(visualMod.components.includes(comp.name)){
+				return getModuleLocationFull(visualMod) + "/" + getRoutePathNested(comp.name); //Return module's location for first visual module. 
+			}
+		}
+		
+		return getModuleLocation(comp.name) + "/" + getRoutePathNested(comp.name);// Return general location
+	
+	}
+	
+
+	
+	operation getRoutePath(word: String, index: Integer): String{
+		var wordSub = word.substring(1,word.length -1);
+		var path = wordSub.split("\\.")[index];
+		return path.trim();
+	}
+	
+	operation getRoutePathNested(word: String): String{
+		var result;
+		var count = 0;
+		var splitWords = word.split("(?<=[a-z])(?=[A-Z])").asSequence();
+		splitWords = splitWords.select(e | e <> 'Component' ).select( e | e <> 'Service').select( e | e <> 'Module');
+		for(word in splitWords){
+			if(count <> 0){
+				result = result + "-" + word.toLowerCase();
+			}else{			
+				result = word.toLowerCase();
+			}
+			count= count+1;		
+		}
+		
+		return result.trim();
+	}
+	
+	
+	operation getCameCaseWithBlanks(word: String): String{
+		var result;
+		var count = 0;
+		var splitWords = word.split("(?<=[a-z])(?=[A-Z])").asSequence();
+		splitWords = splitWords.select(e | e <> 'Component' ).select( e | e <> 'Service').select( e | e <> 'Module');
+		for(word in splitWords){
+			if(count <> 0){
+				result = result + " " + word.firstToUpperCase();
+			}else{			
+				result = word.firstToUpperCase();
+			}
+			count= count+1;		
+		}
+		
+		return result.trim();
+	}
+	
+	@Deprecated
+	operation Component filename() : String {
+    		return self.name.toLowerCase() + ".component.ts";
+    }
+    
+    @Deprecated
+    operation Component location() : String {
+    		return self.name.toLowerCase() + "/";
+    }
+    
+    @Deprecated
+    operation Component tplname() : String {
+    		return self.name + ".component.html";
+    }
+    
+    @Deprecated
+    operation Component stylename() : String {
+    		return self.name + ".component.css";
+    }
+    @Deprecated
+    operation Component modelName() : String {
+    		return self.name + ".model.ts";
+    }
+		
+	
+%]

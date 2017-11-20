@@ -1,0 +1,19 @@
+[% 
+	import "../../utils.egl";
+	
+	":::::Generating e2e files:::::".println();
+	
+	var rootPath =  "angular-main-files/e2e/";
+
+	var e2eSpec:Template:= TemplateFactory.load(rootPath + 'app.e2e-spec.egl');
+	e2eSpec.populate("name", name);
+	e2eSpec.generate(getRootLocation() + "e2e/app.e2e-spec.ts");
+
+	var e2eAppPo:Template:= TemplateFactory.load(rootPath + 'app.po.ts.egl');
+	e2eAppPo.generate(getRootLocation() + "e2e/app.po.ts");
+	
+	var e2eTsconfig:Template:= TemplateFactory.load(rootPath + 'tsconfig.e2e.json.egl');
+	e2eTsconfig.generate(getRootLocation() + "e2e/tsconfig.e2e.json");
+	
+
+%]

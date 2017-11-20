@@ -1,0 +1,16 @@
+[%
+	import '../../../utils.egl';
+	var name = component.modelData.name;
+	var count = 1;
+	var numElements = 12;
+	var mockForString = component.name.firstToUpperCase();
+%]
+
+[
+    [% while(count <= numElements){%]
+    	  {"id": [%=count%],[% for (attr in component.modelData.attributes.asBag().select(e | e.name <> 'id')){ %]	
+	      "[%=attr.name%]": [%if(attr.type.toString().equals('String')){%]"[%=mockForString%][%=count%]"[%}else if(attr.type.toString().equals('Number')){%][%=count%][%}else{%]null[%}%][%if(hasMore){%],[%}%] 	    
+	      [%}%]}[%if(count < numElements){%],[%}%]
+	      [% count = count + 1;%]	
+    [%}%]
+]

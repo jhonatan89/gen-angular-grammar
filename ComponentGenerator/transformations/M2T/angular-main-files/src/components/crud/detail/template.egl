@@ -1,0 +1,23 @@
+[% 
+	import '../../../../../utils.egl';
+	var modelData = component.modelData;
+%]
+<div class="col-sm-12 col-md-8 col-md-offset-2">
+  <form [formGroup]="formGroup" (ngSubmit)="save[%=modelData.name.firstToUpperCase()%]([%=modelData.name.firstToLowerCase()%])">
+[% for (attr in modelData.attributes.asBag()){ %]
+	 [% if(attr.name <> modelData.idAtribute and attr.type <> 'SearchComboBox'){%]
+	 <div class="form-group">
+      <label for="form-[%=attr.name.firstToLowerCase()%]">[%=attr.name.firstToUpperCase()%]</label>
+      <input type="text" class="form-control" [(ngModel)]="[%=modelData.name.firstToLowerCase()%].[%=attr.name.firstToLowerCase()%]" id="form-[%=attr.name.firstToLowerCase()%]" name="[%=attr.name.firstToLowerCase()%]" placeholder="[%=attr.name.firstToUpperCase()%]" formControlName="[%=attr.name.firstToLowerCase()%]Ctrl" [%if(attr.isRequired){%]required[%}%]>
+     </div>
+	 [%}%]
+	 [%if(attr.type.equals('SearchComboBox')){%]
+	 <div class="form-group">
+            <app-search-combo-box [[%=attr.name.toLowerCase()%]Ctrl]='formGroup.controls.[%=attr.name.toLowerCase()%]Ctrl' ([%=attr.name.toLowerCase()%]Selected)="[%=modelData.name%].[%=attr.name.toLowerCase()%]=$event" [preSelect[%=attr.name.firstToUpperCase()%]]="[%=modelData.name%].[%=attr.name.toLowerCase()%]"></app-search-combo-box>
+     </div> 
+	 [%}%]
+[%}%] 
+    <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Save</button>
+    <button type="button" class="btn btn-default" [routerLink]="['../../list']">Cancel</button>
+  </form>
+</div>

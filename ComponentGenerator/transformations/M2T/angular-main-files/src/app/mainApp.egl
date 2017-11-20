@@ -1,0 +1,27 @@
+[% 
+	import "../../../utils.egl";
+	
+	":::::Generating main app files:::::".println();
+	var rootPath = 'angular-main-files/src/app/'; 
+
+	var appModule:Template:= TemplateFactory.load(rootPath + 'module.egl');
+	appModule.populate("parent", parent);
+	appModule.generate(getRootLocation() + "src/app/app.module.ts");
+		
+	var appComponent:Template:= TemplateFactory.load(rootPath + 'component.egl');
+	appComponent.generate(getRootLocation() + "src/app/app.component.ts");
+	
+	var appStyle:Template:= TemplateFactory.load(rootPath + 'styles.egl');
+	appStyle.generate(getRootLocation() + "src/app/app.component.css");
+	
+	var appTpl:Template:= TemplateFactory.load(rootPath + 'template.egl');
+	appTpl.generate(getRootLocation() + "src/app/app.component.html");
+	
+	
+	var appTpl:Template:= TemplateFactory.load(rootPath + 'serviceLocatorMain.egl');
+	appTpl.generate(getRootLocation() + "src/app/service-locator-main.ts");
+	
+	
+	
+
+%]

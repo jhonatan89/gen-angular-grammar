@@ -3,8 +3,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/uniandes.academia.generator/src-gen" editDirectory="/uniandes.academia.generator.edit/src"
     editorDirectory="/uniandes.academia.generator.editor/src" modelPluginID="uniandes.academia.generator"
     forceOverwrite="true" modelName="Generator" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="5.0" copyrightFields="false" editPluginID="uniandes.academia.generator.edit"
-    editorPluginID="uniandes.academia.generator.editor" runtimeVersion="2.10">
+    complianceLevel="6.0" copyrightFields="false" editPluginID="uniandes.academia.generator.edit"
+    editorPluginID="uniandes.academia.generator.editor" runtimeVersion="2.13">
   <genPackages prefix="Generator" basePackage="uniandes.academia" disposableProviderFactory="true"
       fileExtensions="angen" ecorePackage="Generator.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Generator.ecore#//EnumType">

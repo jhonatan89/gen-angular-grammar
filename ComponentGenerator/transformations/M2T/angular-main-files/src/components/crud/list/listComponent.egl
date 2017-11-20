@@ -1,0 +1,75 @@
+[% 
+   import "../../../../../utils.egl";
+   var modelPath = getRoutePathNested(component.modelData.name); 
+   var componentPath = getRoutePathNested(component.name);
+   var modelData = component.modelData;
+%]
+
+
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { [%=component.modelData.name.firstToUpperCase()%]Model } from '../[%=modelPath%].model';
+import { [%=component.name.firstToUpperCase()%]Service } from '../[%=componentPath%].service';
+
+@Component({
+  selector: 'app-[%=componentPath%]-list',
+  templateUrl: './[%if(component.showAsGallery == true){%][%=componentPath%]-list-gallery.component.html'[%}else{%][%=componentPath%]-list.component.html'[%}%],
+  styleUrls: ['./[%=componentPath%]-list.component.css']
+})
+export class [%=component.name.firstToUpperCase()%]ListComponent implements [%if(component.enableMock == false){%]OnInit[%}else{%]DoCheck[%}%] {
+  
+  private [%=modelData.name.toLowerCase()%]s:any[];
+  private start: number = 0;
+  private totalRecords: number;
+  private page: number = 1;
+  private pageSize: number = 9;
+  
+  
+  constructor(private [%=component.name.firstToLowerCase()%]Service: [%=component.name.firstToUpperCase()%]Service) { 
+  }
+	
+  [%if(component.enableMock == false){%]	
+  ngOnInit() {
+    this.get[%=modelData.name.firstToUpperCase()%]s(this.start, this.pageSize);
+    this.get[%=modelData.name.firstToUpperCase()%]Num();
+  }
+  [%}else{%]
+  	ngDoCheck() {
+    this.get[%=modelData.name.firstToUpperCase()%]s(this.start, this.pageSize);
+    this.get[%=modelData.name.firstToUpperCase()%]Num();
+  }
+  [%}%]
+
+  get[%=modelData.name.firstToUpperCase()%]s(start: number, pageSize: number, query?: number){
+    console.info('Get Service, getting elements');
+    this.[%=component.name.firstToLowerCase()%]Service.[%=component.list.name.firstToLowerCase()%](start, pageSize).subscribe(data => { this.[%=modelData.name.toLowerCase()%]s = data },
+    error => {
+      console.error(error);
+    })
+  }
+
+
+  delete[%=modelData.name.firstToUpperCase()%](id: number){
+    console.info('Delete Service, deleting '+ id);
+    this.[%=component.name.firstToLowerCase()%]Service.[%=component.deleteItem.name.firstToLowerCase()%](id).subscribe(result => { console.log("Deleted item succesfully") },
+     error => {
+       console.error(error)
+     });
+  }
+
+  get[%=modelData.name.firstToUpperCase()%]Num(){
+    console.info('Get Service, getting total num');
+    this.[%=component.name.firstToLowerCase()%]Service.[%=component.listNum.name.firstToLowerCase()%]().subscribe(num => this.totalRecords = num, error => console.log(error));
+  }
+
+  private pageChanged(obj: any){
+    this.start = obj.page * obj.pageSize - obj.pageSize;
+    this.pageSize = obj.pageSize;
+    this.get[%=modelData.name.firstToUpperCase()%]s(this.start,this.pageSize);
+  }
+
+
+
+
+
+}
+

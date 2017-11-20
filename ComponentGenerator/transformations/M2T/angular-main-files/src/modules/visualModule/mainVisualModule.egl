@@ -1,0 +1,31 @@
+[% import "../../../../utils.egl";
+	
+	var rootPath =  "angular-main-files/src/modules/visualModule/";
+	var visualModule:Template:= TemplateFactory.load(rootPath + 'module.egl');
+	var visualComponent:Template:= TemplateFactory.load(rootPath + 'component.egl');
+	var visualStyle:Template:= TemplateFactory.load(rootPath + 'styles.egl');
+	var visualTpl:Template:= TemplateFactory.load(rootPath + 'template.egl');
+
+
+	for(visualMod in visualModulesChildren ) {
+	
+		visualModule.populate("module", visualMod);
+		visualModule.generate(getModuleLocation(visualMod.name) + "/" + visualMod.name.toLowerCase() + '.module.ts'); 
+		
+		visualComponent.populate("module", visualMod);	
+		visualComponent.generate(getModuleLocation(visualMod.name) + "/" + visualMod.name.toLowerCase() + '.component.ts');
+		
+		visualStyle.populate("module", visualMod);	
+		visualStyle.generate(getModuleLocation(visualMod.name) + "/" + visualMod.name.toLowerCase() + '.component.css');
+		
+		visualTpl.populate("module", visualMod);	
+		visualTpl.generate(getModuleLocation(visualMod.name) + "/" + visualMod.name.toLowerCase() + '.component.html');
+		
+		visualMod.name.println(":::::Created Visual Module--> ");
+		
+	}
+
+
+
+%]
+

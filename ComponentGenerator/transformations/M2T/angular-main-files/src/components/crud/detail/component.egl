@@ -1,0 +1,68 @@
+[% 
+   import "../../../../../utils.egl";
+   var modelPath = getRoutePathNested(component.modelData.name); 
+   var componentPath = getRoutePathNested(component.name);
+   var modelData = component.modelData;
+%]
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { [%=component.modelData.name.firstToUpperCase()%]Model } from '../[%=modelPath%].model';
+import { [%=component.name.firstToUpperCase()%]Service } from '../[%=componentPath%].service';
+
+@Component({
+  selector: 'app-[%=componentPath%]-detail',
+  templateUrl: './[%=componentPath%]-detail.component.html',
+  styleUrls: ['./[%=componentPath%]-detail.component.css']
+})
+export class [%=component.name.firstToUpperCase()%]DetailComponent implements OnInit {
+
+  private formGroup: FormGroup;
+  private currentId: number;
+  private [%=modelData.name.firstToLowerCase()%]: [%=modelData.name.firstToUpperCase()%]Model = new [%=modelData.name.firstToUpperCase()%]Model();
+
+  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private [%=component.name.firstToLowerCase()%]Service: [%=component.name.firstToUpperCase()%]Service) {
+    this.formGroup = this._formBuilder.group({
+      [% for (attr in modelData.attributes.asBag()){ %]
+		 [% if(attr.name <> modelData.idAtribute){%][%=attr.name.firstToLowerCase()%]Ctrl: ['', Validators.compose([[%if(attr.isRequired){%]Validators.required[%}%]])][%if(hasMore){%], [%}}%]
+	  [%}%] 
+    });
+  }
+
+  ngOnInit() {
+    this.currentId = Number(this.route.snapshot.params['id']);
+    if (this.currentId) {
+      this.get[%=modelData.name.firstToUpperCase()%]ById(this.currentId);
+    }
+  }
+
+  get[%=modelData.name.firstToUpperCase()%]ById(id: number){
+    this.[%=component.name.firstToLowerCase()%]Service.[%=component.get.name.firstToLowerCase()%](id).subscribe(data => this.[%=modelData.name.firstToLowerCase()%] = data), 
+    error => {
+      console.error(error);
+    };
+  }
+
+  save[%=modelData.name.firstToUpperCase()%]([%=modelData.name.firstToLowerCase()%]: [%=modelData.name.firstToUpperCase()%]Model) {
+    if (this.currentId) {
+      console.info("Update [%=modelData.name.toLowerCase()%] =>" + JSON.stringify([%=modelData.name.firstToLowerCase()%]));
+      this.[%=component.name.firstToLowerCase()%]Service.[%=component.update.name.firstToLowerCase()%]([%=modelData.name.firstToLowerCase()%]).subscribe(success => {
+        console.info(success);
+        this.router.navigate(['../../']);
+      }, error => {
+        console.error(error);
+      });
+    } else {
+      console.info("Save [%=modelData.name.firstToLowerCase()%] =>" + JSON.stringify([%=modelData.name.firstToLowerCase()%]));
+      this.[%=component.name.firstToLowerCase()%]Service.[%=component.create.name.firstToLowerCase()%]([%=modelData.name.firstToLowerCase()%]).subscribe(success => {
+        console.info(success);
+        this.router.navigate(['../../']);
+      }, error => {
+        console.error(error);
+      });
+    }
+  }
+
+
+}

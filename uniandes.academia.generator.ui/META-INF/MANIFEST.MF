@@ -22,5 +22,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: uniandes.academia.ui.quickfix,
  uniandes.academia.ui.contentassist,
  uniandes.academia.ui.contentassist.antlr,
- uniandes.academia.ui.internal
+ uniandes.academia.ui.internal,
+ uniandes.academia.ui.contentassist.antlr.internal
 Bundle-Activator: uniandes.academia.ui.internal.GeneratorActivator

@@ -1,0 +1,6 @@
+<ng-template #rt let-r="result" let-t="term">
+        {{ r.name }}
+</ng-template>
+<label for="[%=component.name%]">[%=component.name.firstToUpperCase()%]:</label>
+<input id="[%=component.name%]" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" [formControl]="[%=component.name.toLowerCase()%]Ctrl" [resultTemplate]="rt" (selectItem)="selectedItem($event)"/>
+<hr>

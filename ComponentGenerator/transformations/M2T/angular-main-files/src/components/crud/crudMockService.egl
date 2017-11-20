@@ -1,0 +1,121 @@
+[% import "../../../../utils.egl"; var modelPath = getRoutePathNested(component.modelData.name);%]
+/*
+  Mock Service Enabled
+*/
+import { Injectable } from '@angular/core';
+import { Headers, Http, URLSearchParams, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { [%=component.modelData.name.firstToUpperCase()%]Model } from './[%=modelPath%].model';
+import { Locator[%=component.name.firstToUpperCase()%]Service } from './[%=getRoutePathNested(component.name)%]-locator.service';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+
+
+@Injectable()
+export class [%=component.name.firstToUpperCase()%]Service {
+
+  private headers: Headers;
+  private options: RequestOptions;
+  constructor(private http: Http, private urlService: Locator[%=component.name.firstToUpperCase()%]Service) {
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json, text/plain' });
+    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
+  }
+
+  [%=component.create.name.firstToLowerCase()%]([%=component.modelData.name.toLowerCase()%]:[%=component.modelData.name.firstToUpperCase()%]Model) {
+    this.saveItemToListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]);
+    let observable = new Observable(observer => { observer.next([%=component.modelData.name.firstToLowerCase()%]), observer.complete() });
+    return observable;
+  }
+
+  [%=component.update.name.firstToLowerCase()%]([%=component.modelData.name.toLowerCase()%]:[%=component.modelData.name.firstToUpperCase()%]Model) {
+    this.updateItemToListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]);
+    let observable = new Observable(observer => { observer.next([%=component.modelData.name.firstToLowerCase()%]), observer.complete() });
+    return observable;
+  }
+
+  [%=component.list.name.firstToLowerCase()%](start: number, limit: number, query?: string) {
+    if (!this.getListFromLocalStorage()) {
+      let params = new URLSearchParams();
+      params.set('offset', start.toString());
+      params.set('limit', limit.toString());
+      return this.http.get(this.urlService.getUrlList(), { search: params })
+        .map(data => this.extractData(data))
+        .catch(this.handleError);
+    } else {
+      let observable: Observable<Array<[%=component.modelData.name.firstToUpperCase()%]Model>> = new Observable(observer => { observer.next(this.getListFromLocalStorage().slice(start, start+limit)), observer.complete() });
+      return observable;
+    }
+  }
+
+  [%=component.get.name.firstToLowerCase()%](id: number) {
+    let observable: Observable<BookModel> = new Observable(observer => { observer.next(this.getItemFromList(id)), observer.complete() });
+    return observable;
+  }
+
+  [%=component.listNum.name.firstToLowerCase()%]() {
+    let observable: Observable<number> = new Observable(observer => { observer.next(this.getListFromLocalStorage() ? this.getListFromLocalStorage().length: 0), observer.complete() })
+    return observable;
+  }
+
+
+  [%=component.deleteItem.name.firstToLowerCase()%](id: number) {
+    this.deleteItemToListInLocalStorage(id);
+    let observable: Observable<number> = new Observable(observer => { observer.next(id), observer.complete() });
+    return observable;
+  }
+
+
+  private getListFromLocalStorage(): [%=component.modelData.name.firstToUpperCase()%]Model[] {
+    return localStorage.getItem('[%=component.modelData.name.firstToLowerCase()%]s') ? JSON.parse(localStorage.getItem('[%=component.modelData.name.firstToLowerCase()%]s')): undefined;
+  }
+
+  private getItemFromList(id: number): [%=component.modelData.name.firstToUpperCase()%]Model {
+    let [%=component.modelData.name.firstToLowerCase()%]List: [%=component.modelData.name.firstToUpperCase()%]Model[] = this.getListFromLocalStorage();
+    let [%=component.modelData.name.firstToLowerCase()%]InList = [%=component.modelData.name.firstToLowerCase()%]List.find(elm => elm.id == id);
+    return [%=component.modelData.name.firstToLowerCase()%]InList;
+  }
+
+  private saveItemToListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]: [%=component.modelData.name.firstToUpperCase()%]Model): void {
+    let [%=component.modelData.name.firstToLowerCase()%]List: [%=component.modelData.name.firstToUpperCase()%]Model[] = this.getListFromLocalStorage();
+    [%=component.modelData.name.firstToLowerCase()%]List.push([%=component.modelData.name.firstToLowerCase()%]);
+    this.saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List);
+  }
+
+  private deleteItemToListInLocalStorage(id: number): void {
+    let [%=component.modelData.name.firstToLowerCase()%]List: [%=component.modelData.name.firstToUpperCase()%]Model[] = this.getListFromLocalStorage();
+    let [%=component.modelData.name.firstToLowerCase()%]ToDelete: [%=component.modelData.name.firstToUpperCase()%]Model = this.getItemFromList(id);
+    let index = [%=component.modelData.name.firstToLowerCase()%]List.findIndex(elm => elm.id == [%=component.modelData.name.firstToLowerCase()%]ToDelete.id);
+    [%=component.modelData.name.firstToLowerCase()%]List.splice(index, 1);
+    this.saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List);
+  }
+
+  private saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List: [%=component.modelData.name.firstToUpperCase()%]Model[]) {
+    let body = JSON.stringify([%=component.modelData.name.firstToLowerCase()%]List);
+    localStorage.setItem('[%=component.modelData.name.firstToLowerCase()%]s', body);
+  }
+
+  private updateItemToListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]: [%=component.modelData.name.firstToUpperCase()%]Model) {
+    let [%=component.modelData.name.firstToLowerCase()%]List: [%=component.modelData.name.firstToUpperCase()%]Model[] = this.getListFromLocalStorage();
+    if(this.getItemFromList([%=component.modelData.name.firstToLowerCase()%].id)){
+      let index = [%=component.modelData.name.firstToLowerCase()%]List.findIndex(elm => elm.id == [%=component.modelData.name.firstToLowerCase()%].id);
+      [%=component.modelData.name.firstToLowerCase()%]List.splice(index, 1, [%=component.modelData.name.firstToLowerCase()%]);
+    };
+    this.saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List);
+  }
+
+
+  private extractData(res: Response) {
+    let body:[%=component.modelData.name.firstToUpperCase()%]Model[] = res.json();
+    this.saveListInLocalStorage(body);
+    return body || {};
+  }
+
+  private handleError(error: Response) {
+    return Observable.throw(error.statusText || 'Server error');
+  }
+
+
+}
+
+

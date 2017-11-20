@@ -1,0 +1,6 @@
+<ng-template #rt let-r="result" let-t="term">
+        {{ r.name }}
+</ng-template>
+<label for="university">University:</label>
+<input id="university" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" [formControl]="universityCtrl" [resultTemplate]="rt" (selectItem)="selectedItem($event)"/>
+<hr>

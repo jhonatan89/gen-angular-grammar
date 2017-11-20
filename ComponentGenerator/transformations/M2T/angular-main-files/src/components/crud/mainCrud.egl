@@ -1,0 +1,68 @@
+[%
+
+import "../../../../utils.egl";
+
+	var rootPath = 'angular-main-files/src/components/crud/';
+	var assetsPath = 'angular-main-files/src/assets/';
+	var rootComponentLocation = getComponentLocationFull(component);
+	var relativeComponentLocation = getRoutePathNested(component.name);
+	
+	
+	var crudComponent:Template:= TemplateFactory.load(rootPath + 'crudComponent.egl');
+	crudComponent.populate("component", component);
+	crudComponent.generate(rootComponentLocation + "/" + relativeComponentLocation + ".component.ts" );
+	
+	var crudTpl:Template:= TemplateFactory.load(rootPath + 'crudTemplate.egl');
+	crudTpl.populate("component", component);
+	crudTpl.generate(rootComponentLocation + "/" + relativeComponentLocation + ".component.html" );
+	
+	
+	var crudStyles:Template:= TemplateFactory.load(rootPath + 'crudStyles.egl');
+	crudStyles.populate("component", component);
+	crudStyles.generate(rootComponentLocation + "/" + relativeComponentLocation + ".component.css" );
+	
+	var crudServiceLocator:Template:= TemplateFactory.load(rootPath + 'crudServiceLocator.egl');
+	crudServiceLocator.populate("component", component);
+	crudServiceLocator.generate(rootComponentLocation + "/" + relativeComponentLocation + "-locator.service.ts" );
+	
+	var crudUrlService:Template:= TemplateFactory.load(rootPath + 'urlService.egl');
+	crudUrlService.populate("component", component);
+	crudUrlService.generate(rootComponentLocation + "/" + "urlService.ts" );
+	
+	if(component.enableMock == true){
+		var crudService:Template:= TemplateFactory.load(rootPath + 'crudMockService.egl');
+		crudService.populate("component", component);
+		crudService.generate(rootComponentLocation + "/" + relativeComponentLocation + ".service.ts" );
+	}else{
+		var crudService:Template:= TemplateFactory.load(rootPath + 'crudService.egl');
+		crudService.populate("component", component);
+		crudService.generate(rootComponentLocation + "/" + relativeComponentLocation + ".service.ts" );
+	}
+	
+	
+	if(component.enableMock == true){
+		var crudMockHelper:Template:= TemplateFactory.load(assetsPath + 'mockHelper.egl');
+		crudMockHelper.populate("component", component);
+		crudMockHelper.generate(getAssetsLocation() + 'mocks-helpers/' + component.name.toLowerCase() + '.json');
+	}
+	
+	var crudModel:Template:= TemplateFactory.load(getModelTemplatePath() + 'model.egl');
+	crudModel.populate("name", component.name);
+	crudModel.populate("modelData", component.modelData);
+	crudModel.generate(rootComponentLocation + "/" + getRoutePathNested(component.modelData.name) + ".model.ts");
+
+	
+	var crudDetailComponent:Template:= TemplateFactory.load(rootPath + 'detail/detailMain.egl');
+	crudDetailComponent.populate("component", component);
+	crudDetailComponent.populate("location", rootComponentLocation);
+	crudDetailComponent.process();
+	
+	var crudListComponent:Template:= TemplateFactory.load(rootPath + 'list/listMain.egl');
+	crudListComponent.populate("location", rootComponentLocation);
+	crudListComponent.populate("component", component);
+	crudListComponent.process();
+	
+	component.name.println("Created Crud Component--> ");
+	
+
+%]

@@ -1,0 +1,23 @@
+<div class="col-sm-12 col-md-8 col-md-offset-2">
+  <form [formGroup]="formGroup" (ngSubmit)="saveBook(book)">
+	 <div class="form-group">
+      <label for="form-name">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="book.name" id="form-name" name="name" placeholder="Name" formControlName="nameCtrl" required>
+     </div>
+	 <div class="form-group">
+      <label for="form-editorial">Editorial</label>
+      <input type="text" class="form-control" [(ngModel)]="book.editorial" id="form-editorial" name="editorial" placeholder="Editorial" formControlName="editorialCtrl" required>
+     </div>
+	 <div class="form-group">
+      <label for="form-author">Author</label>
+      <input type="text" class="form-control" [(ngModel)]="book.author" id="form-author" name="author" placeholder="Author" formControlName="authorCtrl" required>
+     </div>
+	 <div class="form-group">
+      <label for="form-price">Price</label>
+      <input type="text" class="form-control" [(ngModel)]="book.price" id="form-price" name="price" placeholder="Price" formControlName="priceCtrl" required>
+     </div>
+ 
+    <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Save</button>
+    <button type="button" class="btn btn-default" [routerLink]="['../../list']">Cancel</button>
+  </form>
+</div>

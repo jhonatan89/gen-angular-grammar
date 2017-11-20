@@ -1,0 +1,17 @@
+[%
+	import '../../../utils.egl';
+	var name = modelData.name;
+	var count = 1;
+	var mockForString = name.firstToUpperCase();
+%]
+import { [%=name.firstToUpperCase%]Model } from "./[%=getRoutePathNested(name.firstToLowerCase)%].model";
+
+export const [%=name.toUpperCase%]_MOCK: [%=name.firstToUpperCase%]Model[] = [
+    
+    [% while(count < 10){%]
+    	  {"id": [%=count%],[% for (attr in modelData.attributes.asBag().select(e | e.name <> 'id')){ %]	
+	      "[%=attr.name%]": [%if(attr.type.toString().equals('String')){%]"[%=mockForString%][%=count%]"[%}else if(attr.type.toString().equals('Number')){%][%=count%][%}else{%]null[%}%][%if(hasMore){%],[%}%] 	    
+	      [%}%]},
+	      [% count = count + 1;%]	
+    [%}%]
+]

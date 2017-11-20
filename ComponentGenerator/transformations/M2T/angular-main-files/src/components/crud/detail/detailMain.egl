@@ -1,0 +1,20 @@
+[%
+	import "../../../../../utils.egl";
+	var rootPath = 'angular-main-files/src/components/crud/detail/';  
+
+
+	var detailComponent:Template:= TemplateFactory.load(rootPath + 'component.egl');
+	detailComponent.populate("component", component);
+	detailComponent.generate(location + "/" + getRoutePathNested(component.name) + "-detail/" + getRoutePathNested(component.name)+ "-detail.component.ts");
+		
+	var detailTpl:Template:= TemplateFactory.load(rootPath + 'template.egl');
+	detailTpl.populate("component", component);
+	detailTpl.generate(location + "/" + getRoutePathNested(component.name) + "-detail/" + getRoutePathNested(component.name)+ "-detail.component.html");
+	
+	var detailStyles:Template:= TemplateFactory.load(rootPath + 'styles.egl');
+	detailStyles.populate("component", component);
+	detailStyles.generate(location + "/" + getRoutePathNested(component.name) + "-detail/" + getRoutePathNested(component.name)+ "-detail.component.css");
+	
+	
+
+%]

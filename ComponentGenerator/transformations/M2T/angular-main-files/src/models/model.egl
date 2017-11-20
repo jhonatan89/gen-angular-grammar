@@ -1,0 +1,10 @@
+export class [%=modelData.name.firstToUpperCase() %]Model{
+    
+    
+    [% for (attr in modelData.attributes.asBag()){ %]
+		 public [%=attr.name%]: [%=attr.type.toString().toLowerCase()%];
+	[%}%] 
+    
+    constructor(){}
+
+}

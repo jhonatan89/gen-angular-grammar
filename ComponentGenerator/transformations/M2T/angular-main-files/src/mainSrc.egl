@@ -1,0 +1,43 @@
+[%
+	import "../../utils.egl";
+	
+	":::::Generating index file:::::".println();
+	var rootPath =  "angular-main-files/src/";
+
+	var index:Template:= TemplateFactory.load(rootPath + 'index.egl');
+	index.populate("name", name);
+	index.generate(getRootLocation() + "src/index.html");
+	
+	var maints:Template:= TemplateFactory.load(rootPath + 'maints.egl');
+	maints.generate(getRootLocation() + "src/main.ts");
+	
+	var polyfills:Template:= TemplateFactory.load(rootPath + 'polyfills.egl');
+	polyfills.generate(getRootLocation() + "src/polyfills.ts");
+	
+	var styles:Template:= TemplateFactory.load(rootPath + 'styles.css.egl');
+	styles.generate(getRootLocation() + "src/styles.css");
+	
+	var test:Template:= TemplateFactory.load(rootPath + 'test.egl');
+	test.generate(getRootLocation() + "src/test.ts");
+	
+	var tsconfigApp:Template:= TemplateFactory.load(rootPath + 'tsconfig.app.json.egl');
+	tsconfigApp.generate(getRootLocation() + "src/tsconfig.app.json");
+		
+	var tsconfigSpec:Template:= TemplateFactory.load(rootPath + 'tsconfig.spec.egl');
+	tsconfigSpec.generate(getRootLocation() + "src/tsconfig.spec.json");
+	
+	var typing:Template:= TemplateFactory.load(rootPath + 'typings.d.egl');
+	typing.generate(getRootLocation() + "src/typings.d.ts");
+	
+	var envProd:Template:= TemplateFactory.load(rootPath + 'enviroment.prod.egl');
+	envProd.generate(getRootLocation() + "src/environments/environment.prod.ts");
+
+	var env:Template:= TemplateFactory.load(rootPath + 'enviroment.egl');
+	env.generate(getRootLocation() + "src/environments/environment.ts");
+	
+	var assetsGitKeep:Template:= TemplateFactory.load(rootPath + 'gitkeep.egl');
+	assetsGitKeep.generate(getRootLocation() + "src/assets/.gitkeep");
+
+
+
+%]

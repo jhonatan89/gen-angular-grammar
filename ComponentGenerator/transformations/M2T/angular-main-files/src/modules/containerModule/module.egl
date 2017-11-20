@@ -1,0 +1,43 @@
+[% import "../../../../utils.egl"; %]
+
+import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
+import { SharedModule } from '../../shared/shared.module';
+[% for(component in module.components) {%]
+  [% if(component.isKindOf(Crud)){%]
+import { Locator[%=component.name.firstToUpperCase()%]Service } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%]-locator.service';
+import { [%=component.name.firstToUpperCase()%]Component } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%].component';
+import { [%=component.name.firstToUpperCase()%]ListComponent } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%]-list/[%=getRoutePathNested(component.name)%]-list.component';
+import { [%=component.name.firstToUpperCase()%]DetailComponent } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%]-detail/[%=getRoutePathNested(component.name)%]-detail.component';
+import { [%=component.name.firstToUpperCase()%]Service } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%].service';
+[%}}%]
+export const routes : Routes = [
+[% for(component in module.components) {%]
+  [% if(component.isKindOf(Crud)){%]
+	  {path:'', redirectTo: 'list', pathMatch: "full"},
+	  {path:'list', component:[%=component.name.firstToUpperCase()%]ListComponent},
+	  {path:'edit/:id', component:[%=component.name.firstToUpperCase()%]DetailComponent},
+	  {path:'create', component:[%=component.name.firstToUpperCase()%]DetailComponent}
+  [%}%]
+]
+[%}%]
+
+@NgModule({
+  imports: [
+    CommonModule,
+    NgbModule,
+    HttpModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule
+  ],
+  declarations: [[% for(component in module.components){ if(component.isKindOf(Crud)){%][%=component.name.firstToUpperCase()%]Component , [%=component.name.firstToUpperCase()%]ListComponent, [%=component.name.firstToUpperCase()%]DetailComponent [%}else{%][%=component.name %][%}if(hasMore){%], [%}}%]],
+  exports:[[% for(component in module.exports) {%] [%=component.name.firstToUpperCase()%]Component [%if(hasMore){%],[%}}%]],
+  providers: [[% for(component in module.components) {%] [%=component.name.firstToUpperCase()%]Service, Locator[%=component.name.firstToUpperCase()%]Service [%if(hasMore){%],[%}}%]]
+})
+export class [%=module.name.firstToUpperCase()%]Module { }

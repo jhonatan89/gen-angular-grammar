@@ -1,0 +1,12 @@
+[%
+import "../../../utils.egl";
+	var rootPath =  "angular-main-files/src/components/";
+
+	for(component in components) {
+		if(component.isKindOf(Crud)){
+			var componentCrud:Template:= TemplateFactory.load(rootPath + 'crud/mainCrud.egl');
+			componentCrud.populate("component", component);
+			componentCrud.process();
+		}
+	}
+%]

@@ -1,0 +1,76 @@
+import { Injectable }    from '@angular/core';
+import { Headers, Http, URLSearchParams, Response } from '@angular/http';
+import { ServiceMainLocator } from '../../../service-locator-main';
+[%if(component.enableMock == false){%]import { [%=component.create.name.toUpperCase()%], [%=component.update.name.toUpperCase()%], [%=component.get.name.toUpperCase()%], [%=component.list.name.toUpperCase()%], [%=component.listNum.name.toUpperCase()%], [%=component.deleteItem.name.toUpperCase()%], BASE_URL } from './urlService'[%}%]
+
+[% var urlHelper = 'assets/mocks-helpers/' + component.name.toLowerCase() + '.json'; %]
+
+@Injectable()
+export class Locator[%=component.name.firstToUpperCase()%]Service {
+	
+	constructor(private serviceLocator: ServiceMainLocator){}
+	
+    [%if(component.list <> null){%]
+	    [%if(component.enableMock == false){%]
+	    getUrlList(): string{
+	        return this.getHost() + BASE_URL + [%=component.list.name.toUpperCase()%];
+	    }        
+	    [%}else{%]
+	    getUrlList(): string{
+	        return '[%=urlHelper%]';
+	    }
+	    [%}%]
+    [%}%]
+
+	[%if(component.create <> null){%]
+		[%if(component.enableMock == false){%]
+	    getUrlCreate(): string{
+	        [%if(component.enableMock == false){%]return this.getHost() + BASE_URL + [%=component.create.name.toUpperCase()%][%}%];
+	    }
+	    [%}%]
+    [%}%]
+
+	[%if(component.update <> null){%]
+		[%if(component.enableMock == false){%]
+	    getUrlUpdate(): string{
+	        [%if(component.enableMock == false){%]return this.getHost() + BASE_URL + [%=component.update.name.toUpperCase()%][%}%];
+	    }
+	    [%}%]
+    [%}%]
+    
+    [%if(component.get <> null){%]
+	    [%if(component.enableMock == false){%]
+	    getUrlGetItem(): string{
+	        [%if(component.enableMock == false){%]return this.getHost() + BASE_URL + [%=component.get.name.toUpperCase()%][%}%];
+	    }
+	    [%}%]
+    [%}%]
+    
+
+	[%if(component.listNum <> null){%]
+		[%if(component.enableMock == false){%]
+	    getUrlListNum(): string{
+	        [%if(component.enableMock == false){%]return this.getHost() + BASE_URL + [%=component.listNum.name.toUpperCase()%][%}%];
+	    }
+		[%}%]
+	[%}%]
+	
+	[%if(component.deleteItem <> null){%]
+		[%if(component.enableMock == false){%]
+	    getUrlDeleteItem(): string{
+	        [%if(component.enableMock == false){%]return this.getHost() + BASE_URL + [%=component.deleteItem.name.toUpperCase()%][%}%];
+	    }
+	    [%}%]
+    [%}%]
+
+    [%if(component.enableMock == false){%]
+	    [%if(component.enableMock == false){%]
+	    public getHost(): string{
+	        let host = this.serviceLocator.getHost();
+	        return host;
+	    }
+	    [%}%]
+    [%}%]
+
+
+}

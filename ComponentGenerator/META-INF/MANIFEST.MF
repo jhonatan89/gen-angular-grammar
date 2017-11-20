@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: ComponentGenerator
+Bundle-Name: ComponentGenerator
+Bundle-Version: 1.0.0
+Require-Bundle: com.mtcflow.model,com.mtcflow.engine,com.mtcflow.engin
+ e.core
+Bundle-ManifestVersion: 2
+

@@ -1,0 +1,137 @@
+
+LibraryApp {
+	
+	//import services.*
+
+	Modules {
+		VisualModule Main {
+			imports:[];
+			exports:[];
+			route: ["Library.LibraryComponent"];
+			show:[];
+			defaultRoute: "Library.LibraryComponent"; 
+			showLayout: GALLERY;
+			components: [];	
+		}
+		VisualModule Library{
+			parent: Main;
+			imports: [];
+			exports: [];
+			route: ["Book.BookCrudComponent","Author.AuthorCrudComponent"];	
+			show:[];
+			defaultRoute: "Book.BookCrudComponent";
+			showLayout: List;
+			components: [];
+		}
+		ContainerModule Author{
+			parent: Library;
+			imports: [];
+			exports: [AuthorCrud];
+			components: [AuthorCrud];
+	    }	
+	    ContainerModule Book{
+			parent: Library;
+			imports: [];
+			exports: [BookCrud];
+			components: [BookCrud];
+	    }				
+	}
+	Components{
+		Crud BookCrud{
+			model: Book;
+			showAsGallery: true;
+			enableMock: true;
+			createService: BookServices.createBook;
+			updateService: BookServices.updateBook;
+			listService: BookServices.searchBooks;
+			listNumService: BookServices.searchNumBooks;
+			deleteService: BookServices.deleteBook;
+			getService: BookServices.getBook;
+			
+		}
+		Crud AuthorCrud{
+			model: Author;
+			createService: AuthorServices.createAuthor;
+			updateService: AuthorServices.updateAuthor;
+			listService: AuthorServices.searchAuthors;
+			listNumService: AuthorServices.searchNumAuthors;
+			deleteService: AuthorServices.deleteAuthor;
+			getService: AuthorServices.getAuthor;
+			
+		}
+		SearchComboBox university{
+			model: University;
+			service: Shared.getUniversity;
+		}		
+    }
+    
+
+		
+    Models {
+		Model Book{
+			attributes: [
+				{attributeName: id, type: Number}, 
+				{attributeName: name, type:String, isRequired: true}, 
+				{attributeName: editorial, type: String, isRequired: true},
+				{attributeName: author, type:String, isRequired: true},
+				{attributeName: price, type:Number, isRequired: true},
+//				{attributeName: university, type:SearchComboBox, component: university, isRequired: true},
+			];
+			idAtribute: id;
+			showAttributeList: name;
+		}
+		Model Author{
+			attributes: [
+				{attributeName: id, type: Number}, 
+				{attributeName: name, type: String, isRequired: true}, 
+				{attributeName: age, type: Number, isRequired: true}, 
+				{attributeName: profile, type:String}
+			];
+			idAtribute: id;
+			showAttributeList: name;
+		}
+		Model University{
+			attributes: [
+				{attributeName: id, type: Number}, 
+				{attributeName: name, type: String, isRequired: true}, 
+				{attributeName: code, type: Number, isRequired: true}, 
+				{attributeName: contryName, type:String}
+			];
+			idAtribute: id;
+			showAttributeList: name;
+		}
+
+    }
+    
+}
+	
+ServicesGroup AuthorServices {
+	baseUrl: api
+	Service createAuthor { url: "authors/createAuthor", type: PUT}
+	Service updateAuthor { url: "authors/updateAuthors",type: POST}
+	Service searchAuthors { url: "authors/searchCriterio", type: GET}
+	Service searchNumAuthors {url: "authors/searchNum", type: GET}
+	Service getAuthor {	url: "authors/getAuthor", type: GET}
+	Service deleteAuthor {url: "authors/deleteAuthor", type: DELETE}
+	
+ }
+ 
+ ServicesGroup BookServices{
+ 	baseUrl: api
+ 	Service createBook {url: "books/createBook", type: PUT}
+	Service updateBook {url: "books/updateAuthors",	type: POST}
+	Service searchBooks {url: "books/searchBooks", type: GET}
+	Service searchNumBooks {url: "books/searchNum",	type: GET}
+	Service getBook {url: "books/getBook",type: GET}
+	Service deleteBook {url: "books/deleteBook",type: DELETE}
+ }
+ 
+ ServicesGroup Shared {
+ 	baseUrl: api
+	Service getUniversity {url: "searchUniversitiesServlet",type: GET,collectionName: universities}
+ 	
+ }
+ 
+  
+    
+    

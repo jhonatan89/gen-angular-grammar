@@ -1,0 +1,36 @@
+[% import "../../../../utils.egl"; %]
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { [%=module.name.firstToUpperCase()%]Component } from './[%=module.name.firstToLowerCase()%].component';
+[% for(route in module.routes ){ %]
+import { [%=getRoutePath(route,0).firstToUpperCase()%]Module, routes as [%=getRoutePath(route,0).firstToLowerCase()%]ChildRoutes } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePath(route,0).firstToLowerCase()%].module';
+import { [%=getRoutePath(route,1).firstToUpperCase()%] } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePathNested(getRoutePath(route,1))%]/[%=getRoutePathNested(getRoutePath(route,1))%].component';
+[% }%]
+import { SharedModule } from '../shared/shared.module';
+
+
+export const routes: Routes = [
+  {path: '', redirectTo: '[%=getRoutePath(module.routes[0],0).firstToLowerCase()%]', pathMatch: 'full' },
+[% for(route in module.routes ){ %]
+  {path: '[%=getRoutePath(route,0).firstToLowerCase()%]', component:[%=getRoutePath(route,1).firstToUpperCase()%], children: [%=getRoutePath(route,0).firstToLowerCase()%]ChildRoutes }[%if(hasMore){%],[%}%]
+[% } %]
+]
+
+
+@NgModule({
+  imports: [
+    NgbModule,
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    [% for(mod in module.routes ){ %][%=getRoutePath(mod,0).firstToUpperCase()%]Module [%if(hasMore){%],[%}%][% } %]
+  ],
+  declarations: [[%=module.name.firstToUpperCase()%]Component]
+})
+export class [%=module.name.firstToUpperCase()%]Module { }
+

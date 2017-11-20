@@ -1,0 +1,44 @@
+[%
+
+	import "../../../../utils.egl";
+
+	var rootPath =  "angular-main-files/src/modules/containerModule/";
+
+	for(mod in containerModules) {
+		var containerModule:Template:= TemplateFactory.load(rootPath + 'module.egl');
+		containerModule.populate("module", mod);
+		containerModule.generate(getModuleLocationFull(mod) + "/" + mod.name.toLowerCase() + '.module.ts');
+		mod.name.println(":::::Created Container Module--> "); 
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%]

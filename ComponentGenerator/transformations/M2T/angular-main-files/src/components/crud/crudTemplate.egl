@@ -1,0 +1,5 @@
+[% import '../../../../utils.egl';%]
+<div class="container">
+    <h1>[%=getCameCaseWithBlanks(component.name)%]</h1>[%if(component.enableMock){%]<h4><span class="label label-warning">Mock enabled</span></h4>[%}%]
+    <router-outlet></router-outlet>
+</div>

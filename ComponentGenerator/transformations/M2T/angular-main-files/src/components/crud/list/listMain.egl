@@ -1,0 +1,25 @@
+[%
+	import "../../../../../utils.egl";
+	var rootPath = 'angular-main-files/src/components/crud/list/'; 
+	var listComponentPath = getRoutePathNested(component.name); 
+
+	var listComponent:Template:= TemplateFactory.load(rootPath + 'listComponent.egl');
+	listComponent.populate("component", component);
+	listComponent.generate(location + "/" + listComponentPath + "-list/" + listComponentPath + "-list.component.ts");
+		
+	if(component.showAsGallery){
+		var listTpl:Template:= TemplateFactory.load(rootPath + 'listGalleryTemplate.egl');
+		listTpl.populate("component", component);
+		listTpl.generate(location + "/" + listComponentPath + "-list/" + listComponentPath + "-list-gallery.component.html");
+	}else{
+		var listTpl:Template:= TemplateFactory.load(rootPath + 'listTemplate.egl');
+		listTpl.populate("component", component);
+		listTpl.generate(location + "/" + listComponentPath + "-list/" + listComponentPath + "-list.component.html");
+	}
+	
+	var listStyles:Template:= TemplateFactory.load(rootPath + 'listStyles.egl');
+	listStyles.generate(location + "/" + listComponentPath + "-list/" + listComponentPath + "-list.component.css");
+	
+	
+
+%]
