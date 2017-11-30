@@ -3,6 +3,7 @@ Xtext grammar for Angular applications
 
 ## Requirements
 1. Eclipse Modeling - Epsilon, Xtext, EGL and MTC-FLOW plugin.
+2. Plugin OCL Examples and Editor SDK.
 
 ## Install 
 1. Import *uniandes.academia.generator*, *uniandes.academia.generator.ui*, *uniandes.academia.generator.tests* and *uniandes.academia.generator.sdk* projects to Eclipse Modeling Workspace.
