@@ -21,6 +21,9 @@
 	var appTpl:Template:= TemplateFactory.load(rootPath + 'serviceLocatorMain.egl');
 	appTpl.generate(getRootLocation() + "src/app/service-locator-main.ts");
 	
+	var materialModule:Template:= TemplateFactory.load(rootPath + 'angularMaterial.egl');
+	materialModule.generate(getRootLocation() + "src/app/angular-material.module.ts");
+	
 	
 	
 

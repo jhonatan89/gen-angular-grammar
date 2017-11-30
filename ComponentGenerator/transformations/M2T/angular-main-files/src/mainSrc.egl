@@ -8,6 +8,9 @@
 	index.populate("name", name);
 	index.generate(getRootLocation() + "src/index.html");
 	
+	var customThemeForAngularMaterial:Template:= TemplateFactory.load(rootPath + 'customTheme.egl');
+	customThemeForAngularMaterial.generate(getRootLocation() + "src/custom-theme.scss");
+	
 	var maints:Template:= TemplateFactory.load(rootPath + 'maints.egl');
 	maints.generate(getRootLocation() + "src/main.ts");
 	

@@ -62,6 +62,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EnumType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//ComponentBasic"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isRequired" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mockType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VisualModule" eSuperTypes="#//Module">
     <eStructuralFeatures xsi:type="ecore:EReference" name="exports" unique="false"

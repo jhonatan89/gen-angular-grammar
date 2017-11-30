@@ -82,6 +82,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/type"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Attribute/component"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/isRequired"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/mockType"/>
     </genClasses>
     <genClasses ecoreClass="Generator.ecore#//VisualModule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//VisualModule/exports"/>

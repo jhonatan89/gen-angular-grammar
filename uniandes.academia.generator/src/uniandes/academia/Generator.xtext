@@ -92,6 +92,7 @@ Attribute:
 	'type' COLON type=EnumType COMA?
 	('component' COLON component=[ComponentBasic] COMA)? 
 	('isRequired' COLON isRequired=BOOLEAN)?
+	('mockType' COLON mockType=EString)?
 	RIGTHCURLY
 ;
 
@@ -187,7 +188,8 @@ enum EnumMethodType:
 
 enum EnumLayout:
 	LIST = 'List' | GALLERY = 'GALLERY' 
-;	
+;
+
 
 enum EnumLanguage:
 	ES = 'Spanish' | EN = 'English'
