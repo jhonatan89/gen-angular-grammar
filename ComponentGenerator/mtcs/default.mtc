@@ -7,7 +7,7 @@
   <transformations xsi:type="com.mtcflow.model:M2TTransformation" name="Model2Text" URI="main.egl" target="${generated path}"/>
   <configurations>
     <variables name="model path" defaultValue="../grammarBook.xmi"/>
-    <variables name="generated path" defaultValue="gen/crudBeta"/>
+    <variables name="generated path" defaultValue="gen/crudBeta2"/>
   </configurations>
   <outputFiles transformation="//@transformations.0" file="//@files.0"/>
 </com.mtcflow.model:MTC>

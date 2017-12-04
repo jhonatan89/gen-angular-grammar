@@ -41,7 +41,13 @@ export class [%=component.name.firstToUpperCase()%]ListComponent implements [%if
 
   get[%=modelData.name.firstToUpperCase()%]s(start: number, pageSize: number, query?: number){
     console.info('Get Service, getting elements');
-    this.[%=component.name.firstToLowerCase()%]Service.[%=component.list.name.firstToLowerCase()%](start, pageSize).subscribe(data => { this.[%=modelData.name.toLowerCase()%]s = data },
+    this.[%=component.name.firstToLowerCase()%]Service.[%=component.list.name.firstToLowerCase()%](start, pageSize).subscribe(data => { 
+    [%if(component.enableMock == true){%]   
+      if(!this.[%=component.name.firstToLowerCase()%]Service.getListFromLocalStorage()) { this.[%=component.name.firstToLowerCase()%]Service.saveListInLocalStorage(data) };
+    [%}%]
+      this.[%=modelData.name.toLowerCase()%]s = data; 
+      
+    },
     error => {
       console.error(error);
     })

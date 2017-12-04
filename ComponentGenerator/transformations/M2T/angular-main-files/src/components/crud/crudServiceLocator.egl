@@ -3,7 +3,7 @@ import { Headers, Http, URLSearchParams, Response } from '@angular/http';
 import { ServiceMainLocator } from '../../../service-locator-main';
 [%if(component.enableMock == false){%]import { [%=component.create.name.toUpperCase()%], [%=component.update.name.toUpperCase()%], [%=component.get.name.toUpperCase()%], [%=component.list.name.toUpperCase()%], [%=component.listNum.name.toUpperCase()%], [%=component.deleteItem.name.toUpperCase()%], BASE_URL } from './urlService'[%}%]
 
-[% var urlHelper = 'assets/mocks-helpers/' + component.name.toLowerCase() + '.json'; %]
+[% var urlHelper = 'https://api.mockaroo.com/api/generate.json'; %]
 
 @Injectable()
 export class Locator[%=component.name.firstToUpperCase()%]Service {

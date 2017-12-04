@@ -5,7 +5,7 @@ package models{
 			attributes: [
 				{attributeName: id, type: Number}, 
 				{attributeName: name, type:String, isRequired: true}, 
-				{attributeName: editorial, type: String, isRequired: true},
+				{attributeName: editorial, type: String, isRequired: true, mockType: 'Company Name'},
 				{attributeName: author, type:String, isRequired: true},
 				{attributeName: price, type:Number, isRequired: true},
 //				{attributeName: university, type:SearchComboBox, component: university, isRequired: true},

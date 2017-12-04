@@ -40,10 +40,11 @@ import "../../../../utils.egl";
 	}
 	
 	
-	if(component.enableMock == true){
-		var crudMockHelper:Template:= TemplateFactory.load(assetsPath + 'mockHelper.egl');
-		crudMockHelper.populate("component", component);
-		crudMockHelper.generate(getAssetsLocation() + 'mocks-helpers/' + component.name.toLowerCase() + '.json');
+	if(component.enableMock == true){	
+		var crudMockFormat:Template:= TemplateFactory.load(assetsPath + 'formatMock.egl');
+		crudMockFormat.populate("component", component);
+		crudMockFormat.populate("modelData", component.modelData);
+		crudMockFormat.generate(getAssetsLocation() + 'mocks-helpers/' + component.modelData.name.firstToLowerCase() + 'MockFormat.ts');
 	}
 	
 	var crudModel:Template:= TemplateFactory.load(getModelTemplatePath() + 'model.egl');

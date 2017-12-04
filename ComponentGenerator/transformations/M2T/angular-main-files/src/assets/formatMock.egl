@@ -1,0 +1,16 @@
+
+export let [%=modelData.name.firstToLowerCase()%]MockFormat = [
+
+	// Complete in this file specific features for mock types - More information in https://www.mockaroo.com/api/docs
+	[% for (attr in modelData.attributes.asBag()){ %] 
+	{
+			name: '[%=attr.name%]',
+			type: [%if(attr.mockType <> null){%][%=attr.mockType.toString()%][%}else{%][%if(attr.type.toString() == 'String'){%]'Full Name'[%}%][%if(attr.type.toString() == 'Number'){%]'Number'[%}%][%}%],
+			[%if(attr.type.toString() == 'Number'){%]
+			min: 1,
+			max: 1000
+			[%}%]
+	}[%if(hasMore){%],[%}%]
+
+	[%}%] 
+]

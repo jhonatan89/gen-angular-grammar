@@ -10,6 +10,8 @@ import { Locator[%=component.name.firstToUpperCase()%]Service } from './[%=getRo
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { environment } from '../../../../environments/environment';
+import { [%=component.modelData.name.firstToLowerCase()%]MockFormat } from '../../../../assets/mocks-helpers/[%=component.modelData.name.firstToLowerCase()%]MockFormat';
 
 
 @Injectable()
@@ -32,13 +34,13 @@ export class [%=component.name.firstToUpperCase()%]Service {
     return observable;
   }
 
-  [%=component.list.name.firstToLowerCase()%](start: number, limit: number, query?: string) {
+  [%=component.list.name.firstToLowerCase()%](start: number, limit: number, query?: string): Observable<Array<[%=component.modelData.name.firstToUpperCase()%]Model>> {
     if (!this.getListFromLocalStorage()) {
-      let params = new HttpParams().set('offset', start.toString());
-      params = params.append('start', start.toString());
-      params = params.append('limit', limit.toString());
-      return this.http.get(this.urlService.getUrlList(), { params: params })
-        .catch(this.handleError);
+      let params = new HttpParams().set('key', environment.mockarooApi);
+      params = params.append('count', '50');
+      params = params.append('fields', JSON.stringify([%=component.modelData.name.firstToLowerCase()%]MockFormat));
+      return this.http.get<[%=component.modelData.name.firstToUpperCase()%]Model[]>(this.urlService.getUrlList(), { params: params });
+
     } else {
       let observable: Observable<Array<[%=component.modelData.name.firstToUpperCase()%]Model>> = new Observable(observer => { observer.next(this.getListFromLocalStorage().slice(start, start+limit)), observer.complete() });
       return observable;
@@ -46,7 +48,7 @@ export class [%=component.name.firstToUpperCase()%]Service {
   }
 
   [%=component.get.name.firstToLowerCase()%](id: number) {
-    let observable: Observable<BookModel> = new Observable(observer => { observer.next(this.getItemFromList(id)), observer.complete() });
+    let observable: Observable<[%=component.modelData.name.firstToUpperCase()%]Model> = new Observable(observer => { observer.next(this.getItemFromList(id)), observer.complete() });
     return observable;
   }
 
@@ -63,7 +65,7 @@ export class [%=component.name.firstToUpperCase()%]Service {
   }
 
 
-  private getListFromLocalStorage(): [%=component.modelData.name.firstToUpperCase()%]Model[] {
+  getListFromLocalStorage(): [%=component.modelData.name.firstToUpperCase()%]Model[] {
     return localStorage.getItem('[%=component.modelData.name.firstToLowerCase()%]s') ? JSON.parse(localStorage.getItem('[%=component.modelData.name.firstToLowerCase()%]s')): undefined;
   }
 
@@ -87,7 +89,7 @@ export class [%=component.name.firstToUpperCase()%]Service {
     this.saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List);
   }
 
-  private saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List: [%=component.modelData.name.firstToUpperCase()%]Model[]) {
+  saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List: [%=component.modelData.name.firstToUpperCase()%]Model[]) {
     let body = JSON.stringify([%=component.modelData.name.firstToLowerCase()%]List);
     localStorage.setItem('[%=component.modelData.name.firstToLowerCase()%]s', body);
   }
@@ -99,17 +101,6 @@ export class [%=component.name.firstToUpperCase()%]Service {
       [%=component.modelData.name.firstToLowerCase()%]List.splice(index, 1, [%=component.modelData.name.firstToLowerCase()%]);
     };
     this.saveListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]List);
-  }
-
-
-  private extractData(res: any) {
-    let body:[%=component.modelData.name.firstToUpperCase()%]Model[] = res;
-    this.saveListInLocalStorage(body);
-    return body || {};
-  }
-
-  private handleError(error: Response) {
-    return Observable.throw(error.statusText || 'Server error');
   }
 
 
