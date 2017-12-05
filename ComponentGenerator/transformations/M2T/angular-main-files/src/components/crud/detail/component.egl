@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { [%=component.modelData.name.firstToUpperCase()%]Model } from '../[%=modelPath%].model';
 import { [%=component.name.firstToUpperCase()%]Service } from '../[%=componentPath%].service';
 
@@ -22,7 +23,7 @@ export class [%=component.name.firstToUpperCase()%]DetailComponent implements On
   private currentId: number;
   private [%=modelData.name.firstToLowerCase()%]: [%=modelData.name.firstToUpperCase()%]Model = new [%=modelData.name.firstToUpperCase()%]Model();
 
-  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private [%=component.name.firstToLowerCase()%]Service: [%=component.name.firstToUpperCase()%]Service) {
+  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private [%=component.name.firstToLowerCase()%]Service: [%=component.name.firstToUpperCase()%]Service, private location: Location) {
     this.formGroup = this._formBuilder.group({
       [% for (attr in modelData.attributes.asBag()){ %]
 		 [% if(attr.name <> modelData.idAtribute){%][%=attr.name.firstToLowerCase()%]Ctrl: ['', Validators.compose([[%if(attr.isRequired){%]Validators.required[%}%]])][%if(hasMore){%], [%}}%]
@@ -49,7 +50,7 @@ export class [%=component.name.firstToUpperCase()%]DetailComponent implements On
       console.info("Update [%=modelData.name.toLowerCase()%] =>" + JSON.stringify([%=modelData.name.firstToLowerCase()%]));
       this.[%=component.name.firstToLowerCase()%]Service.[%=component.update.name.firstToLowerCase()%]([%=modelData.name.firstToLowerCase()%]).subscribe(success => {
         console.info(success);
-        this.router.navigate(['../../']);
+        this.goBack();
       }, error => {
         console.error(error);
       });
@@ -57,11 +58,15 @@ export class [%=component.name.firstToUpperCase()%]DetailComponent implements On
       console.info("Save [%=modelData.name.firstToLowerCase()%] =>" + JSON.stringify([%=modelData.name.firstToLowerCase()%]));
       this.[%=component.name.firstToLowerCase()%]Service.[%=component.create.name.firstToLowerCase()%]([%=modelData.name.firstToLowerCase()%]).subscribe(success => {
         console.info(success);
-        this.router.navigate(['../../']);
+        this.goBack();
       }, error => {
         console.error(error);
       });
     }
+  }
+  
+  goBack(){
+    this.location.back();
   }
 
 

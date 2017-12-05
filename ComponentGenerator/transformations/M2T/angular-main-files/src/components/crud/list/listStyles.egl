@@ -7,3 +7,12 @@
     max-width: 100%;
     margin-bottom: 20px;
 }
+
+.row-space{
+    padding: 20px;
+}
+
+
+.thumbnail{
+    box-shadow: 2px 3px #c2c2c2;
+}

@@ -1,4 +1,9 @@
 [% import '../../../../../utils.egl'; %]
+<div class="row row-space">
+    <div class="col-sm-12 col-md-12">
+        <button type="button" class="btn btn-md btn-primary" [routerLink]="['../create']"><span class="glyphicon-plus"></span> Create</button>
+    </div>
+</div>
 <div class="panel panel-default" *ngIf="[%=component.modelData.name.toLowerCase()%]s">
     <!-- Default panel contents -->
     <div class="panel-heading">[%=getCameCaseWithBlanks(component.modelData.name)%]s</div>

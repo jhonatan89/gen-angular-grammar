@@ -62,7 +62,7 @@ LibraryApp {
 		}
 		SearchComboBox university{
 			model: University;
-			service: Shared.getUniversity;
+			service: Shared.getUniversity; 
 		}		
     }
     

@@ -1,4 +1,9 @@
 <div class="container">
+		<div class="row row-space">
+            <div class="col-sm-12 col-md-12">
+                <button type="button" class="btn btn-md btn-primary" [routerLink]="['../create']"><span class="glyphicon-plus"></span> Create</button>
+            </div>
+        </div>
         <div class="col-sm-6 col-md-4" *ngFor="let item of [%=component.modelData.name.toLowerCase()%]s">
             <div class="thumbnail">
                 <div class="caption">
