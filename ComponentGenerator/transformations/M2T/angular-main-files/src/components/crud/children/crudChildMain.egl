@@ -1,0 +1,43 @@
+[%
+
+import "../../../../../utils.egl";
+
+	var rootPath = 'angular-main-files/src/components/crud/children/';
+	var assetsPath = 'angular-main-files/src/assets/';
+	var relativeChildLocation =  getRoutePathNested(child.name) + "-child";
+	var parentComponentLocation= getComponentLocationFull(component) + "/" + getRoutePathNested(child.name) + "-child";
+	
+	
+	var childComponent:Template:= TemplateFactory.load(rootPath + 'childComponent.egl');
+	childComponent.populate("child", child);
+	childComponent.populate("parent", component);
+	childComponent.generate(parentComponentLocation + "/" + relativeChildLocation + ".component.ts" );
+	
+	var childTemplate:Template:= TemplateFactory.load(rootPath + 'childTemplate.egl');
+	childTemplate.populate("child", child);
+	childTemplate.populate("parent", component);
+	childTemplate.generate(parentComponentLocation + "/" + relativeChildLocation + ".component.html" );
+	
+	
+	var childStyles:Template:= TemplateFactory.load(rootPath + 'childStyles.egl');
+	childStyles.populate("child", child);
+	childStyles.generate(parentComponentLocation + "/" + relativeChildLocation + ".component.css" );
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%]

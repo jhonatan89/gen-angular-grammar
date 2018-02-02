@@ -1,4 +1,6 @@
-[% import "../../../../utils.egl"; var modelPath = getRoutePathNested(component.modelData.name);%]
+[% import "../../../../utils.egl";
+var modelPath = getRoutePathNested(component.modelData.name);
+%]
 /*
   Mock Service Enabled
 */
@@ -23,6 +25,7 @@ export class [%=component.name.firstToUpperCase()%]Service {
   }
 
   [%=component.create.name.firstToLowerCase()%]([%=component.modelData.name.toLowerCase()%]:[%=component.modelData.name.firstToUpperCase()%]Model) {
+    [%=component.modelData.name.toLowerCase()%].id = Math.floor(Math.random()*100 + 1);
     this.saveItemToListInLocalStorage([%=component.modelData.name.firstToLowerCase()%]);
     let observable = new Observable(observer => { observer.next([%=component.modelData.name.firstToLowerCase()%]), observer.complete() });
     return observable;

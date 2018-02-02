@@ -8,7 +8,7 @@
 		var containerModule:Template:= TemplateFactory.load(rootPath + 'module.egl');
 		containerModule.populate("module", mod);
 		containerModule.generate(getModuleLocationFull(mod) + "/" + mod.name.toLowerCase() + '.module.ts');
-		mod.name.println(":::::Created Container Module--> "); 
+		mod.name.print(":::::Container Module--> ");" created".println(); 
 	}
 
 

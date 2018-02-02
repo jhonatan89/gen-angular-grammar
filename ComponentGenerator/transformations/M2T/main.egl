@@ -3,39 +3,48 @@
 	
 	
     //------------------------------- Angular Main Files --------------------------------------------------------------------------------//
-
-    var mainAngularTpl:Template:= TemplateFactory.load('angular-main-files/mainAngular.egl');
-    AbstractElement.allInstances().println("---->Imprime");
-	mainAngularTpl.populate("name", Application.allInstances().first().name);
-	mainAngularTpl.process();	
-	//---------------------------------- Src --------------------------------------------------------------------------------------------//
-	var srcTpl:Template:= TemplateFactory.load('angular-main-files/src/mainSrc.egl');
-	srcTpl.populate("name", Application.allInstances().first().name);
-	srcTpl.process();	
-	//-------------------------------------------e2e-------------------------------------------------------------------------------------//	
-	var mainE2e:Template:= TemplateFactory.load('angular-main-files/e2e/mainE2e.egl');
-	mainE2e.populate("name", Application.allInstances().first().name);
-	mainE2e.process();
-	//------------------------------------------mainApp---------------------------------------------------------------------------------//
-	var mainApp:Template:= TemplateFactory.load('angular-main-files/src/app/mainApp.egl');
-	mainApp.populate("parent", VisualModule.allInstances().select(e|e.parent=null).first());
-	mainApp.process();
-	//----------------------------------Visual Modules ----------------------------------------------
-	var mainVisualModule: Template:= TemplateFactory.load('angular-main-files/src/modules/visualModule/mainVisualModule.egl');
-	mainVisualModule.populate("visualModulesChildren", VisualModule.allInstances().select(e|e.parent <> null ));
-	mainVisualModule.process();
+    if(Application.allInstances().notEmpty()){
+	    var mainAngularTpl:Template:= TemplateFactory.load('angular-main-files/mainAngular.egl');
+	    AbstractElement.allInstances().println("---->Imprime");
+		mainAngularTpl.populate("name", Application.allInstances().first().name);
+		mainAngularTpl.process();
 	
-	//----------------------------------Container Modules ----------------------------------------------
-	var mainContainerModule: Template:= TemplateFactory.load('angular-main-files/src/modules/containerModule/mainContainerModule.egl');
-	mainContainerModule.populate("containerModules", ContainerModule.allInstances().select(e|e.parent <> null ));
-	mainContainerModule.process();
+		//---------------------------------- Src --------------------------------------------------------------------------------------------//
+		var srcTpl:Template:= TemplateFactory.load('angular-main-files/src/mainSrc.egl');
+		srcTpl.populate("name", Application.allInstances().first().name);
+		srcTpl.process();	
+		//-------------------------------------------e2e-------------------------------------------------------------------------------------//	
+		var mainE2e:Template:= TemplateFactory.load('angular-main-files/e2e/mainE2e.egl');
+		mainE2e.populate("name", Application.allInstances().first().name);
+		mainE2e.process();
+	}
 		
-	//----------------------------------Components ----------------------------------------------
-	var mainComponent: Template:= TemplateFactory.load('angular-main-files/src/components/mainComponent.egl');
-	mainComponent.populate("components", Component.allInstances());
-	mainComponent.process();
-		
-	//----------------------------------Shared Module (Pagination) ----------------------------------------------
+	//------------------------------------------mainApp---------------------------------------------------------------------------------//
+	if(VisualModule.allInstances().notEmpty()){
+		var mainApp:Template:= TemplateFactory.load('angular-main-files/src/app/mainApp.egl');
+		mainApp.populate("parent", VisualModule.allInstances().select(e|e.parent=null).first());
+		mainApp.process();
+		//----------------------------------Visual Modules ----------------------------------------------
+		var mainVisualModule: Template:= TemplateFactory.load('angular-main-files/src/modules/visualModule/mainVisualModule.egl');
+		mainVisualModule.populate("visualModulesChildren", VisualModule.allInstances().select(e|e.parent <> null ));
+		mainVisualModule.process();
+	}
+	
+		//----------------------------------Container Modules ----------------------------------------------
+	if(ContainerModule.allInstances().notEmpty()){
+		var mainContainerModule: Template:= TemplateFactory.load('angular-main-files/src/modules/containerModule/mainContainerModule.egl');
+		mainContainerModule.populate("containerModules", ContainerModule.allInstances().select(e|e.parent <> null ));
+		mainContainerModule.process();		
+	}		
+	
+	//----------------------------------Components ----------------------------------------------------------
+	if(Component.allInstances().notEmpty){
+		var mainComponent: Template:= TemplateFactory.load('angular-main-files/src/components/mainComponent.egl');
+		mainComponent.populate("components", Component.allInstances());
+		mainComponent.process();
+	}
+			
+	//----------------------------------Shared Module (Pagination) ---------------------------------------------------
 	var mainSharedModule: Template:= TemplateFactory.load('angular-main-files/src/modules/sharedModule/sharedMain.egl');
 	mainSharedModule.populate("searchComboBoxComponents", Component.allInstances().select(e | e.isKindOf(SearchComboBox) ));
 	mainSharedModule.process();

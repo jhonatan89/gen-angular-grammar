@@ -1,0 +1,62 @@
+[%
+	var childNameUpperCase = child.name.toUpperCase();
+	var childNamefirstUpperCase = child.name.firstToUpperCase();
+	var childNameLowerCase = child.name.toLowerCase();
+	var isShared = child.type.toString().equals('Shared');
+	var isComposite = child.type.toString().equals('Composite');
+
+%]
+<div class="child">
+    <div class="row">
+        [% if(isShared){%]
+        <button class="btn btn-primary add-child-btn" type="button" (click)="isShowedSearchBox[%=childNamefirstUpperCase%]=!isShowedSearchBox[%=childNamefirstUpperCase%]" ><span class="glyphicon glyphicon-plus"></span> Add</button>
+        [%}%]
+        [% if(isComposite){%] 
+        <button class="btn btn-success add-child-btn" type="button" (click)="isShowedCreate[%=childNamefirstUpperCase%]Form=!isShowedCreate[%=childNamefirstUpperCase%]Form"><span class="glyphicon glyphicon-save"></span> Create New [%=childNamefirstUpperCase%]</button>
+        [%}%]
+    </div>
+    [% if(isComposite){%] 
+    <div class="row search-combo-box" *ngIf="isShowedCreate[%=childNamefirstUpperCase%]Form">
+        <app-[%=child.component.modelData.name.toLowerCase()%]-crud-detail (closeDetail)="isShowedCreate[%=childNamefirstUpperCase%]Form=$event"></app-[%=child.component.modelData.name.toLowerCase()%]-crud-detail>
+    </div>
+    <div class="row child-cmp">
+        <h4>My [%=child.component.modelData.name.firstToUpperCase()%]s</h4>
+        <app-[%=child.component.modelData.name.toLowerCase()%]-crud-list [filtersFetch]="[%=parent.modelData.name.toLowerCase()%]" [isOnlyRead]="true" ></app-[%=child.component.modelData.name.toLowerCase()%]-crud-list>
+    </div>
+    [%}%]
+    [% if(isShared){%]
+    <div class="row search-combo-box" *ngIf="isShowedSearchBox[%=childNamefirstUpperCase%]">
+        <form  (ngSubmit)="add[%=childNamefirstUpperCase%]([%=childNameLowerCase%])">
+            <div class="form-group">
+                <div class="col-xs-10 vertical-bottom ">
+                        <label for="form-name">Select an [%=childNamefirstUpperCase%]:</label>
+                        <app-search-combo-box-generic  [configModel]="searchCombo[%=childNameUpperCase%]Model" (itemSelected)="[%=childNameLowerCase%]Selected=$event" [validators]="[%=childNameLowerCase%]SearchBoxValidators"></app-search-combo-box-generic>  
+                </div>
+                <div class="col-xs-1 vertical-bottom">
+                    <button class="btn btn-success btn-small" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>  
+            </div>
+        </form>
+    </div>
+    <div class="row child-cmp" *ngIf="[%=childNameLowerCase%]sSelected.length > 0">
+            <h4>Preselected [%=childNameLowerCase%]s</h4>
+            <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let item of [%=childNameLowerCase%]sSelected">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3>{{item.name}}</h3>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    <div class="row child-cmp">
+        <h4>Currently associated [%=childNameLowerCase%]s</h4>
+        <app-[%=child.component.modelData.name.toLowerCase()%]-crud-list [filtersFetch]="[%=parent.modelData.name.toLowerCase()%]" [isOnlyRead]="true" ([%=childNameLowerCase%]Items)="[%=childNameLowerCase%]ItemsFromChild=$event"></app-[%=child.component.modelData.name.toLowerCase()%]-crud-list>
+    </div>
+    <!-- only for debug purposes -->
+    <div class="row child-cmp">
+        <h4><i>Parent from child</i></h4>
+        <pre>{{[%=parent.modelData.name.toLowerCase()%] | json}}</pre>
+    </div> 
+    [%}%]
+
+</div>

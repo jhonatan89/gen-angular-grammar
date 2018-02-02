@@ -23,10 +23,17 @@ package services {
 		
      }
      
-     ServicesGroup Shared {
-     	baseUrl: api
-		Service getUniversity {url: "searchUniversitiesServlet",type: GET,collectionName: universities}
-     	
-     }
+      ServicesGroup ReviewServices{
+      	baseUrl: api
+      	Service createReview {url: "reviews", type: PUT}
+		Service updateReview {url: "reviews",	type: POST}
+		Service searchReviews {url: "reviews", type: GET}
+		Service searchNumReviews {url: "reviews/searchNum",	type: GET}
+		Service getReview {url: "reviews",type: GET}
+		Service deleteReview {url: "reviews",type: DELETE}
+      }
      
-}   
+     
+   
+     
+}

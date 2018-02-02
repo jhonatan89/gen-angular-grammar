@@ -1,5 +1,7 @@
 package models{
 	
+	import componentGroup.*
+	
 	Models {
 		Model Book{
 			attributes: [
@@ -8,7 +10,10 @@ package models{
 				{attributeName: editorial, type: String, isRequired: true, mockType: 'Company Name'},
 				{attributeName: author, type:String, isRequired: true},
 				{attributeName: price, type:Number, isRequired: true},
-//				{attributeName: university, type:SearchComboBox, component: university, isRequired: true},
+			];
+			children: [
+				Author{component: AuthorCrud, attributeName: "Authors", relationshipType: Shared},
+				Review{component: Review, attributeName: "Reviews", relationshipType: Composite},	
 			];
 			idAtribute: id;
 			showAttributeList: name;
@@ -20,21 +25,22 @@ package models{
 				{attributeName: age, type: Number, isRequired: true}, 
 				{attributeName: profile, type:String}
 			];
+			children: [
+				Book{component: BookCrud, attributeName: "Best Seller", relationshipType: Simple},
+			];
 			idAtribute: id;
 			showAttributeList: name;
 		}
-		Model University{
+		Model Review{
 			attributes: [
 				{attributeName: id, type: Number}, 
 				{attributeName: name, type: String, isRequired: true}, 
-				{attributeName: code, type: Number, isRequired: true}, 
-				{attributeName: contryName, type:String}
+				{attributeName: description, type: String}, 
 			];
 			idAtribute: id;
 			showAttributeList: name;
 		}
 
     }
-	
-	
+    
 }

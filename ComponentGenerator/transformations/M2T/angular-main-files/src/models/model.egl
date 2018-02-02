@@ -4,6 +4,11 @@ export class [%=modelData.name.firstToUpperCase() %]Model{
     [% for (attr in modelData.attributes.asBag()){ %]
 		 public [%=attr.name%]: [%=attr.type.toString().toLowerCase()%];
 	[%}%] 
+	 [%if(modelData.children.isEmpty() <> true){%]
+		 [%for (child in modelData.children.select(c|c.type.toString() = 'Simple')){%]
+	 	 public [%=child.name.firstToLowerCase()%]: any;
+		 [%}%]
+	 [%}%]
     
     constructor(){}
 

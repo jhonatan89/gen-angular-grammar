@@ -5,36 +5,61 @@
    var modelData = component.modelData;
 %]
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Input,  } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { SearchComboBoxGenericModel } from 'ngx-academia-uniandes-library';
 import { [%=component.modelData.name.firstToUpperCase()%]Model } from '../[%=modelPath%].model';
 import { [%=component.name.firstToUpperCase()%]Service } from '../[%=componentPath%].service';
+import { [%=component.name.firstToUpperCase()%]Component } from '../[%=componentPath%].component';
+
+
+
+
 
 @Component({
-  selector: 'app-[%=componentPath%]-detail',
+  selector: 'app-[%=component.modelData.name.toLowerCase()%]-crud-detail',
   templateUrl: './[%=componentPath%]-detail.component.html',
   styleUrls: ['./[%=componentPath%]-detail.component.css']
 })
 export class [%=component.name.firstToUpperCase()%]DetailComponent implements OnInit {
 
+
+  @Input() [%=component.modelData.name.toLowerCase()%]FromParent:[%=component.modelData.name.firstToUpperCase()%]Model;
   private formGroup: FormGroup;
   private currentId: number;
   private [%=modelData.name.firstToLowerCase()%]: [%=modelData.name.firstToUpperCase()%]Model = new [%=modelData.name.firstToUpperCase()%]Model();
-
+  private isEditForm: boolean = false;
+  
+  
+  [%for(child in modelData.children.select(e|e.type.toString = 'Simple')){%]
+  private searchCombo[%=child.name.firstToUpperCase()%]Model: SearchComboBoxGenericModel;
+  private [%=child.name.firstToLowerCase()%]SearchBoxValidators: ValidatorFn[] = [Validators.required];
+  [%}%]
   constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private [%=component.name.firstToLowerCase()%]Service: [%=component.name.firstToUpperCase()%]Service, private location: Location) {
     this.formGroup = this._formBuilder.group({
       [% for (attr in modelData.attributes.asBag()){ %]
 		 [% if(attr.name <> modelData.idAtribute){%][%=attr.name.firstToLowerCase()%]Ctrl: ['', Validators.compose([[%if(attr.isRequired){%]Validators.required[%}%]])][%if(hasMore){%], [%}}%]
 	  [%}%] 
     });
+    [%for(child in modelData.children.select(e|e.type.toString = 'Simple')){%]
+    //Url Demo only for debug proposes
+    this.searchCombo[%=child.name.firstToUpperCase()%]Model = new SearchComboBoxGenericModel("https://academia.uniandes.edu.co/WebServicesAcademy/searchPersonsServlet",[{"name":"limit", "value":10}],"results","completeName", "Search [%=child.name.toLowerCase()%]", 10);
+    [%}%]
   }
 
   ngOnInit() {
-    this.currentId = Number(this.route.snapshot.params['id']);
-    if (this.currentId) {
-      this.get[%=modelData.name.firstToUpperCase()%]ById(this.currentId);
+    if(this.[%=modelData.name.firstToLowerCase()%]FromParent){
+      this.[%=modelData.name.firstToLowerCase()%] = this.[%=modelData.name.firstToLowerCase()%]FromParent;
+    }else{
+      if(this.route.parent.component === [%=component.name.firstToUpperCase()%]Component){
+        this.currentId = Number(this.route.snapshot.params['id']);
+        if(this.currentId) { 
+        	this.get[%=modelData.name.firstToUpperCase()%]ById(this.currentId); 
+        	this.isEditForm = true;
+        }       
+      }
     }
   }
 

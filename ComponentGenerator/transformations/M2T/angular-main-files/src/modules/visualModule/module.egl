@@ -1,34 +1,45 @@
-[% import "../../../../utils.egl"; %]
+[% import "../../../../utils.egl"; 
+	  var modulesToImport : Bag();
+
+%]
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { [%=module.name.firstToUpperCase()%]Component } from './[%=module.name.firstToLowerCase()%].component';
 [% for(route in module.routes ){ %]
-import { [%=getRoutePath(route,0).firstToUpperCase()%]Module, routes as [%=getRoutePath(route,0).firstToLowerCase()%]ChildRoutes } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePath(route,0).firstToLowerCase()%].module';
-import { [%=getRoutePath(route,1).firstToUpperCase()%] } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePathNested(getRoutePath(route,1))%]/[%=getRoutePathNested(getRoutePath(route,1))%].component';
+	[%if(modulesToImport.excludes(getRoutePath(route,0).firstToUpperCase())){%]
+import { [%=getRoutePath(route,0).firstToUpperCase()%]Module } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePath(route,0).firstToLowerCase()%].module';
+	   [% modulesToImport.add(getRoutePath(route,0).firstToUpperCase()); %]
+	[%}%]
+import { [%=getRoutePath(route,1).toLowerCase()%]routes as [%=getRoutePath(route,1).firstToLowerCase()%]ChildRoutes } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePath(route,0).firstToLowerCase()%].module';
+import { [%=getRoutePath(route,1).firstToUpperCase()%]Component } from './[%=getRoutePath(route,0).firstToLowerCase()%]/[%=getRoutePathNested(getRoutePath(route,1))%]/[%=getRoutePathNested(getRoutePath(route,1))%].component';
 [% }%]
 import { SharedModule } from '../shared/shared.module';
 
 
 export const routes: Routes = [
-  {path: '', redirectTo: '[%=getRoutePath(module.routes[0],0).firstToLowerCase()%]', pathMatch: 'full' },
+  {path: '', redirectTo: '[%=getRoutePathNested(getRoutePath(module.routes[0],1).firstToLowerCase())%]', pathMatch: 'full' },
 [% for(route in module.routes ){ %]
-  {path: '[%=getRoutePath(route,0).firstToLowerCase()%]', component:[%=getRoutePath(route,1).firstToUpperCase()%], children: [%=getRoutePath(route,0).firstToLowerCase()%]ChildRoutes }[%if(hasMore){%],[%}%]
+  {path: '[%=getRoutePathNested(getRoutePath(route,1).firstToLowerCase())%]', component:[%=getRoutePath(route,1).firstToUpperCase()%]Component , children: [%=getRoutePath(route,1).firstToLowerCase()%]ChildRoutes }[%if(hasMore){%],[%}%]
 [% } %]
 ]
 
 
 @NgModule({
   imports: [
-    NgbModule,
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    [% for(mod in module.routes ){ %][%=getRoutePath(mod,0).firstToUpperCase()%]Module [%if(hasMore){%],[%}%][% } %]
+    [%modulesToImport.clear();%]
+    [% for(mod in module.routes ){%]
+	    [%if(modulesToImport.excludes(getRoutePath(mod,0).firstToUpperCase())){%]
+    [%=getRoutePath(mod,0).firstToUpperCase()%]Module[%if(hasMore){%],[%}%]
+	[% modulesToImport.add(getRoutePath(mod,0).firstToUpperCase()); %] 		
+		[%}%]
+	[%}%]
   ],
   declarations: [[%=module.name.firstToUpperCase()%]Component]
 })

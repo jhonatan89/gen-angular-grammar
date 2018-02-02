@@ -29,6 +29,14 @@ import "../../../../utils.egl";
 	crudUrlService.populate("component", component);
 	crudUrlService.generate(rootComponentLocation + "/" + "urlService.ts" );
 	
+	for(child in component.modelData.children.select(c|c.type.toString() <> 'Simple')){
+		var crudChild:Template:=TemplateFactory.load(rootPath + '/children/crudChildMain.egl');
+		crudChild.populate("component", component);
+		crudChild.populate("child", child);
+		crudChild.process();	
+	}
+	
+	
 	if(component.enableMock == true){
 		var crudService:Template:= TemplateFactory.load(rootPath + 'crudMockService.egl');
 		crudService.populate("component", component);
@@ -63,7 +71,7 @@ import "../../../../utils.egl";
 	crudListComponent.populate("component", component);
 	crudListComponent.process();
 	
-	component.name.println("Created Crud Component--> ");
+	component.name.print("Crud Component--> ");" created.".println();
 	
 
 %]

@@ -8,7 +8,7 @@ Root:
 	
 
 AbstractElement:
-	PackageDeclaration | Application | Import | Services | Modules | Components | Models
+	PackageDeclaration | Application | Import | Services | Modules | Components | Models | Children
 ;
 
 PackageDeclaration:
@@ -63,6 +63,12 @@ Models:
 	RIGTHCURLY
 ;
 
+Children:
+	'Children' LEFTCURLY
+	(children+=Child)*
+	RIGTHCURLY
+;
+
 
 
 
@@ -82,6 +88,7 @@ Module:
 Model:
 	'Model' name=Name LEFTCURLY
 	'attributes' COLON LEFTBRACKET (attributes+=Attribute COMA?)* RIGHTBRACKET SEMICOLON
+	('children' COLON LEFTBRACKET (children+=Child COMA?)* RIGHTBRACKET SEMICOLON)? 
 	'idAtribute' COLON idAtribute=EString SEMICOLON
 	'showAttributeList' COLON nameAttribute= EString SEMICOLON
 	RIGTHCURLY
@@ -96,6 +103,13 @@ Attribute:
 	RIGTHCURLY
 ;
 
+Child:
+	 name=Name LEFTCURLY 
+	'component' COLON component=[Crud] COMA
+	'attributeName' COLON attributeName= EString COMA	
+	'relationshipType' COLON type=EnumRealtionshipType COMA?
+	RIGTHCURLY
+;
 
 
 VisualModule:
@@ -130,7 +144,7 @@ ComponentContainer:
 
 
 ComponentBasic:
-	Crud | SearchComboBox
+	Crud 
 ;
 
 
@@ -195,6 +209,9 @@ enum EnumLanguage:
 	ES = 'Spanish' | EN = 'English'
 ;
 	
+enum EnumRealtionshipType:
+	COMPOSITE = 'Composite' | SHARED = 'Shared' | SIMPLE = 'Simple' 
+;
 	
 
 		

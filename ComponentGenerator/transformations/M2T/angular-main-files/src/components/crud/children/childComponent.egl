@@ -1,0 +1,55 @@
+[%
+	var childNameUpperCase = child.name.toUpperCase();
+	var childNameLowerCase = child.name.toLowerCase();
+	var childNamefirstToUpperCase = child.name.firstToUpperCase();
+
+%]
+import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SearchComboBoxGenericModel } from 'ngx-academia-uniandes-library'
+import { ValidatorFn } from '@angular/forms/src/directives/validators';
+
+@Component({
+  selector: 'app-[%=childNameLowerCase%]-child',
+  templateUrl: './[%=childNameLowerCase%]-child.component.html',
+  styleUrls: ['./[%=childNameLowerCase%]-child.component.css']
+})
+export class [%=childNamefirstToUpperCase%]ChildComponent implements OnInit {
+
+  private formGroup: FormGroup;
+ [% if(child.type.toString().equals('Shared')){%]
+  private isShowedSearchBox[%=childNameUpperCase%]: boolean;
+  private searchCombo[%=childNameUpperCase%]Model: SearchComboBoxGenericModel;  
+  private [%=childNameLowerCase%]Selected: any;
+  private [%=childNameLowerCase%]sSelected: any =[];
+  private [%=childNameLowerCase%]ItemsFromChild: any = [];  
+  @Output() [%=childNameLowerCase%]Items: EventEmitter<any[]> = new EventEmitter<any[]>();
+  [%=childNameLowerCase%]SearchBoxValidators: ValidatorFn[] = [Validators.compose([Validators.required, Validators.minLength(3)])]
+  [%}%]
+ [% if(child.type.toString().equals('Composite')){%] 
+  private isShowedCreate[%=childNameUpperCase%]Form: boolean;[%}%]
+  @Input() [%=parent.modelData.name.toLowerCase()%]: any;
+
+  
+
+  constructor() {}
+
+  ngOnInit() {
+  [% if(child.type.toString().equals('Shared')){%]
+    this.searchCombo[%=childNameUpperCase%]Model = new SearchComboBoxGenericModel("https://academia.uniandes.edu.co/WebServicesAcademy/searchPersonsServlet",[{"name":"limit", "value":10}],"results","completeName", "Search [%=childNameUpperCase%]s", 10);
+  [%}%]
+  }
+  
+  
+  [% if(child.type.toString().equals('Shared')){%] 
+  add[%=childNamefirstToUpperCase%](){
+    this.[%=childNameLowerCase%]sSelected.push(this.[%=childNameLowerCase%]Selected.item);
+    this.[%=childNameLowerCase%]Items.emit(this.[%=childNameLowerCase%]sSelected.concat(this.[%=childNameLowerCase%]ItemsFromChild));
+    alert(`you've selected ${this.[%=childNameLowerCase%]Selected.value}`)
+  }
+  [%}%]
+
+  
+
+
+}

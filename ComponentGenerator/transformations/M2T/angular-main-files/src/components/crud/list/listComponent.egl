@@ -6,12 +6,12 @@
 %]
 
 
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, Input, Output, EventEmitter } from '@angular/core';
 import { [%=component.modelData.name.firstToUpperCase()%]Model } from '../[%=modelPath%].model';
 import { [%=component.name.firstToUpperCase()%]Service } from '../[%=componentPath%].service';
 
 @Component({
-  selector: 'app-[%=componentPath%]-list',
+  selector: 'app-[%=component.modelData.name.toLowerCase()%]-crud-list',
   templateUrl: './[%if(component.showAsGallery == true){%][%=componentPath%]-list-gallery.component.html'[%}else{%][%=componentPath%]-list.component.html'[%}%],
   styleUrls: ['./[%=componentPath%]-list.component.css']
 })
@@ -22,6 +22,9 @@ export class [%=component.name.firstToUpperCase()%]ListComponent implements [%if
   private totalRecords: number;
   private page: number = 1;
   private pageSize: number = 9;
+  @Input() isOnlyRead: boolean = false;
+  @Input() filtersFetch: any;
+  @Output() [%=modelData.name.toLowerCase()%]Items: EventEmitter<any> = new EventEmitter<any>(); 
   
   
   constructor(private [%=component.name.firstToLowerCase()%]Service: [%=component.name.firstToUpperCase()%]Service) { 
@@ -46,7 +49,7 @@ export class [%=component.name.firstToUpperCase()%]ListComponent implements [%if
       if(!this.[%=component.name.firstToLowerCase()%]Service.getListFromLocalStorage()) { this.[%=component.name.firstToLowerCase()%]Service.saveListInLocalStorage(data) };
     [%}%]
       this.[%=modelData.name.toLowerCase()%]s = data; 
-      
+      this.[%=modelData.name.toLowerCase()%]Items.emit(this.[%=modelData.name.toLowerCase()%]s);
     },
     error => {
       console.error(error);
@@ -70,7 +73,6 @@ export class [%=component.name.firstToUpperCase()%]ListComponent implements [%if
   private pageChanged(obj: any){
     this.start = obj.page * obj.pageSize - obj.pageSize;
     this.pageSize = obj.pageSize;
-    this.get[%=modelData.name.firstToUpperCase()%]s(this.start,this.pageSize);
   }
 
 

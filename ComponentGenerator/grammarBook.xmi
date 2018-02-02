@@ -3,40 +3,26 @@
   <elements xsi:type="generator:Application" name="LibraryApp">
     <elements xsi:type="generator:Import" importedNamespace="services.*"/>
     <elements xsi:type="generator:Import" importedNamespace="models.*"/>
+    <elements xsi:type="generator:Import" importedNamespace="componentGroup.*"/>
     <elements xsi:type="generator:Modules">
       <modules xsi:type="generator:VisualModule" name="Main" defaultRoute="&quot;Library.LibraryComponent&quot;" type="GALLERY">
         <routes>&quot;Library.LibraryComponent&quot;</routes>
       </modules>
-      <modules xsi:type="generator:VisualModule" name="Library" parent="//@elements.0/@elements.2/@modules.0" defaultRoute="&quot;Book.BookCrudComponent&quot;">
-        <routes>&quot;Book.BookCrudComponent&quot;</routes>
-        <routes>&quot;Author.AuthorCrudComponent&quot;</routes>
+      <modules xsi:type="generator:VisualModule" name="Library" parent="//@elements.0/@elements.3/@modules.0" defaultRoute="&quot;Book.BookCrudComponent&quot;">
+        <routes>&quot;Book.BookCrud&quot;</routes>
+        <routes>&quot;Author.AuthorCrud&quot;</routes>
+        <routes>&quot;Author.Review&quot;</routes>
       </modules>
-      <modules xsi:type="generator:ContainerModule" name="Author" parent="//@elements.0/@elements.2/@modules.1" components="//@elements.0/@elements.3/@components.1" exports="//@elements.0/@elements.3/@components.1"/>
-      <modules xsi:type="generator:ContainerModule" name="Book" parent="//@elements.0/@elements.2/@modules.1" components="//@elements.0/@elements.3/@components.0" exports="//@elements.0/@elements.3/@components.0"/>
-    </elements>
-    <elements xsi:type="generator:Components">
-      <components xsi:type="generator:Crud" name="BookCrud" showAsGallery="true" enableMock="true">
-        <modelData href="platform:/resource/ComponentGenerator/assets/models.angen#//@elements.0/@elements.0/@models.0"/>
-        <create href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.0"/>
-        <update href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.1"/>
-        <list href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.2"/>
-        <listNum href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.3"/>
-        <deleteItem href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.5"/>
-        <get href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.4"/>
-      </components>
-      <components xsi:type="generator:Crud" name="AuthorCrud">
-        <modelData href="platform:/resource/ComponentGenerator/assets/models.angen#//@elements.0/@elements.0/@models.1"/>
-        <create href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.0/@services.0"/>
-        <update href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.0/@services.1"/>
-        <list href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.0/@services.2"/>
-        <listNum href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.0/@services.3"/>
-        <deleteItem href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.0/@services.5"/>
-        <get href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.0/@services.4"/>
-      </components>
-      <components xsi:type="generator:SearchComboBox" name="university">
-        <modelData href="platform:/resource/ComponentGenerator/assets/models.angen#//@elements.0/@elements.0/@models.2"/>
-        <service href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.2/@services.0"/>
-      </components>
+      <modules xsi:type="generator:ContainerModule" name="Author" parent="//@elements.0/@elements.3/@modules.1">
+        <components href="platform:/resource/ComponentGenerator/assets/components.angen#//@elements.0/@elements.2/@components.1"/>
+        <components href="platform:/resource/ComponentGenerator/assets/components.angen#//@elements.0/@elements.2/@components.2"/>
+        <exports href="platform:/resource/ComponentGenerator/assets/components.angen#//@elements.0/@elements.2/@components.1"/>
+        <exports href="platform:/resource/ComponentGenerator/assets/components.angen#//@elements.0/@elements.2/@components.2"/>
+      </modules>
+      <modules xsi:type="generator:ContainerModule" name="Book" parent="//@elements.0/@elements.3/@modules.1">
+        <components href="platform:/resource/ComponentGenerator/assets/components.angen#//@elements.0/@elements.2/@components.0"/>
+        <exports href="platform:/resource/ComponentGenerator/assets/components.angen#//@elements.0/@elements.2/@components.0"/>
+      </modules>
     </elements>
   </elements>
 </generator:Root>

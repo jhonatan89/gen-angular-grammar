@@ -1,3 +1,4 @@
-<ngb-pagination [collectionSize]="collectionSize" [(page)]="page" maxSize="5"
-                [rotate]="true" [pageSize]="pageSize" (pageChange)="onPageChange()"
-                [ellipses]="false" boundaryLinks="true"></ngb-pagination>
+<div class="col-xs-12" style="text-align:center">
+    <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" [totalItems]="collectionSize" (pageChanged)="onPageChange($event)" [(ngModel)]="page"
+     previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+</div>

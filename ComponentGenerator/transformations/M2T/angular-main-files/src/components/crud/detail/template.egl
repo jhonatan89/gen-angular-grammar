@@ -10,13 +10,34 @@
       <label for="form-[%=attr.name.firstToLowerCase()%]">[%=attr.name.firstToUpperCase()%]</label>
       <input type="text" class="form-control" [(ngModel)]="[%=modelData.name.firstToLowerCase()%].[%=attr.name.firstToLowerCase()%]" id="form-[%=attr.name.firstToLowerCase()%]" name="[%=attr.name.firstToLowerCase()%]" placeholder="[%=attr.name.firstToUpperCase()%]" formControlName="[%=attr.name.firstToLowerCase()%]Ctrl" [%if(attr.isRequired){%]required[%}%]>
      </div>
-	 [%}%]
-	 [%if(attr.type.equals('SearchComboBox')){%]
-	 <div class="form-group">
-            <app-search-combo-box [[%=attr.name.toLowerCase()%]Ctrl]='formGroup.controls.[%=attr.name.toLowerCase()%]Ctrl' ([%=attr.name.toLowerCase()%]Selected)="[%=modelData.name%].[%=attr.name.toLowerCase()%]=$event" [preSelect[%=attr.name.firstToUpperCase()%]]="[%=modelData.name%].[%=attr.name.toLowerCase()%]"></app-search-combo-box>
-     </div> 
-	 [%}%]
-[%}%] 
+	 [%}%]	 
+[%}%]
+
+	[% if(modelData.children.isEmpty() == false){%]
+	[%for(child in modelData.children.select( c|c.type.toString() = 'Simple')){%]
+	[% deleteQuoteMarks(child.attributeName.toLowerCase()).println("aqui...> ");%]
+	<div class="form-group">
+      <label for="form-profile">[%=deleteQuoteMarks(child.attributeName.firstToUpperCase())%]</label>
+      <app-search-combo-box-generic  [preSelectedItem]="author.[%=child.name.toLowerCase()%]" [configModel]="searchCombo[%=child.name.firstToUpperCase()%]Model" (itemSelected)="author.[%=child.name.toLowerCase()%]=$event.item" [validators]="[%=child.name.toLowerCase()%]SearchBoxValidators"></app-search-combo-box-generic>  
+    </div>
+    [%}%]
+	
+	[%if(modelData.children.select( c|c.type.toString() <> 'Simple').notEmpty){%]
+	<div class="form-group" *ngIf="isEditForm">
+      <tabset>
+		[% for(child in modelData.children.select( c|c.type.toString() <> 'Simple')){ %]
+        <tab heading="[%=child.name.firstToUpperCase()%]" id="tab[%=child.name.firstToLowerCase()%]">
+          <app-[%=child.name.toLowerCase()%]-child [[%=component.modelData.name.toLowerCase()%]]="[%=component.modelData.name.toLowerCase()%]" ([%=child.name.toLowerCase()%]Items)="[%=component.modelData.name.toLowerCase()%][%=child.name.firstToUpperCase()%]s=$event"></app-[%=child.name.toLowerCase()%]-child>
+        </tab>
+		[%}%]    
+      </tabset>
+    </div>
+    [%}%]
+    
+    
+    [%}%]
+    
+    
     <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Save</button>
     <button type="button" class="btn btn-default" (click)="goBack()">Cancel</button>
   </form>

@@ -57,10 +57,15 @@
 
 	
 	operation getRoutePath(word: String, index: Integer): String{
-		var wordSub = word.substring(1,word.length -1);
+		var wordSub = deleteQuoteMarks(word);
 		var path = wordSub.split("\\.")[index];
 		return path.trim();
 	}
+	
+	operation deleteQuoteMarks(word: String): String{
+		return word.substring(1,word.length -1);
+	}
+	
 	
 	operation getRoutePathNested(word: String): String{
 		var result;
@@ -97,6 +102,16 @@
 		return result.trim();
 	}
 	
+    operation Crud getParentName() : String {
+    		for(module in ContainerModule.allInstances().select(m | m.components.notEmpty() = true)){
+    			for(component in module.components){
+	    			if(self == component){
+		     			return module.name.firstToUpperCase();    			
+	    			}    			
+    			}
+    		}
+    }
+    
 	@Deprecated
 	operation Component filename() : String {
     		return self.name.toLowerCase() + ".component.ts";
@@ -120,6 +135,7 @@
     operation Component modelName() : String {
     		return self.name + ".model.ts";
     }
+    
 		
 	
 %]

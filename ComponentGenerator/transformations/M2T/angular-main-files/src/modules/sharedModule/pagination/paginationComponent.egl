@@ -17,8 +17,8 @@ export class PaginationComponent implements OnInit {
   ngOnInit() {
   }
 
-   onPageChange() {
-    this.pageChanged.emit(new PaginatorModel(this.page,this.pageSize, this.collectionSize));
+   onPageChange(event: any) {
+    this.pageChanged.emit(new PaginatorModel(event.page,event.itemsPerPage, this.collectionSize));
   }
 
 }

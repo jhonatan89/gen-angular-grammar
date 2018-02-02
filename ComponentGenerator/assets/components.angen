@@ -1,0 +1,43 @@
+package componentGroup{
+	
+		import services.*
+		import models.*
+		
+		Components{
+			Crud BookCrud{
+				model: Book;
+				showAsGallery: true;
+				enableMock: true;
+				createService: BookServices.createBook;
+				updateService: BookServices.updateBook;
+				listService: BookServices.searchBooks;
+				listNumService: BookServices.searchNumBooks;
+				deleteService: BookServices.deleteBook;
+				getService: BookServices.getBook;
+				
+			}
+			Crud AuthorCrud{
+				model: Author;
+				showAsGallery: true;
+				enableMock: true;
+				createService: AuthorServices.createAuthor;
+				updateService: AuthorServices.updateAuthor;
+				listService: AuthorServices.searchAuthors;
+				listNumService: AuthorServices.searchNumAuthors;
+				deleteService: AuthorServices.deleteAuthor;
+				getService: AuthorServices.getAuthor;
+				
+			}
+			Crud Review{
+				model: Review;
+				showAsGallery: true;
+				enableMock: true;
+				createService: ReviewServices.createReview;
+				updateService: ReviewServices.updateReview;
+				listService: ReviewServices.searchReviews;
+				listNumService: ReviewServices.searchNumReviews;
+				deleteService: ReviewServices.deleteReview;
+				getService: ReviewServices.getReview;
+			}
+	    }
+    }

@@ -1,28 +1,26 @@
 [%
 	import '../../../../utils.egl';
-	var searchLocation = 'search-combo-box-';
-
 %]
 
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http'
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
-[%for(searchCombo in SearchComboBox.allInstances()){%]
-import { SearchComboBox[%=searchCombo.name.firstToUpperCase()%]Component} from './[%=searchLocation%][%=searchCombo.name.firstToLowerCase()%]/[%=searchLocation%][%=searchCombo.name.firstToLowerCase()%].component';
-import { SearchComboBox[%=searchCombo.name.firstToUpperCase()%]Service } from './[%=searchLocation%][%=searchCombo.name.firstToLowerCase()%]/[%=searchLocation%][%=searchCombo.name.firstToLowerCase()%].service'
-[%}%]
+import { NgxBootstrapModule } from '../ngx-bootstrap.module';
+import { SearchComboBoxModule } from 'ngx-academia-uniandes-library'
 
 @NgModule({
     imports: [
-        NgbModule.forRoot(),
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxBootstrapModule,
+        HttpClientModule,
+        SearchComboBoxModule
     ],
-    declarations: [PaginationComponent[%for(searchCombo in SearchComboBox.allInstances()){%], SearchComboBox[%=searchCombo.name.firstToUpperCase()%]Component[%}%]],
-    exports: [CommonModule, FormsModule, ReactiveFormsModule, PaginationComponent[%for(searchCombo in SearchComboBox.allInstances()){%], SearchComboBox[%=searchCombo.name.firstToUpperCase()%]Component[%}%]],
-    providers: [SearchComboBox[%for(searchCombo in SearchComboBox.allInstances()){%][%=searchCombo.name.firstToUpperCase()%]Service[%if(hasMore){%],[%}%][%}%]]
+    declarations: [PaginationComponent],
+    exports: [CommonModule, FormsModule, ReactiveFormsModule, PaginationComponent, SearchComboBoxModule, NgxBootstrapModule],
+    providers: []
 })
 export class SharedModule { }

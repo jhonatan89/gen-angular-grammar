@@ -1,0 +1,22 @@
+	import services.*
+	import models.*
+
+	Components{
+		Crud BookCrud{
+			model: Book;
+			showAsGallery: true;
+			enableMock: false;
+			createService: BookServices.createBook;
+			updateService: BookServices.updateBook;
+			listService: BookServices.searchBooks;
+			listNumService: BookServices.searchNumBooks;
+			deleteService: BookServices.deleteBook;
+			getService: BookServices.getBook;
+		}
+    }
+    
+
+	
+
+ 
+    

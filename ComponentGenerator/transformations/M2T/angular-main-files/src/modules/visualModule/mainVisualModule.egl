@@ -21,7 +21,7 @@
 		visualTpl.populate("module", visualMod);	
 		visualTpl.generate(getModuleLocation(visualMod.name) + "/" + visualMod.name.toLowerCase() + '.component.html');
 		
-		visualMod.name.println(":::::Created Visual Module--> ");
+		visualMod.name.print(":::::Visual Module--> ");" created".println();
 		
 	}
 

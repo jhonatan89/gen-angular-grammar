@@ -24,6 +24,9 @@
 	var materialModule:Template:= TemplateFactory.load(rootPath + 'angularMaterial.egl');
 	materialModule.generate(getRootLocation() + "src/app/angular-material.module.ts");
 	
+	var ngxBootstrapModule:Template:= TemplateFactory.load(rootPath + 'ngx-bootstrapModule.egl');
+	ngxBootstrapModule.generate(getRootLocation() + "src/app/ngx-bootstrap.module.ts");
+	
 	
 	
 

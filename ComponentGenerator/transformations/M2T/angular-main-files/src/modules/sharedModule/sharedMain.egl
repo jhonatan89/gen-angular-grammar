@@ -23,13 +23,5 @@
 	var paginationService:Template:= TemplateFactory.load(rootPath + '/pagination/paginationService.egl');
 	paginationService.generate(getRootLocation() + "src/app/shared/pagination/pagination.component.service.ts");
 	
-	for(component in searchComboBoxComponents){
-	    component.println("--->");
-		var searchCombo:Template:= TemplateFactory.load(rootPath + 'searchComboBox/mainSearchComboBox.egl');
-		searchCombo.populate("component", component);
-		searchCombo.process();
-	}
-
-
 
 %]

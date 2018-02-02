@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<generator:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:generator="http://www.academia.uniandes/Generator">
+  <elements xsi:type="generator:Import" importedNamespace="services.*"/>
+  <elements xsi:type="generator:Import" importedNamespace="models.*"/>
+  <elements xsi:type="generator:Components">
+    <components xsi:type="generator:Crud" name="BookCrud" showAsGallery="true">
+      <modelData href="platform:/resource/ComponentGenerator/assets/models.angen#//@elements.0/@elements.0/@models.0"/>
+      <create href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.0"/>
+      <update href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.1"/>
+      <list href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.2"/>
+      <listNum href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.3"/>
+      <deleteItem href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.5"/>
+      <get href="platform:/resource/ComponentGenerator/assets/services.angen#//@elements.0/@elements.1/@services.4"/>
+    </components>
+  </elements>
+</generator:Root>

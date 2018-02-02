@@ -31,6 +31,11 @@
       <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumLanguage/ES"/>
       <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumLanguage/EN"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Generator.ecore#//EnumRealtionshipType">
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumRealtionshipType/COMPOSITE"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumRealtionshipType/SHARED"/>
+      <genEnumLiterals ecoreEnumLiteral="Generator.ecore#//EnumRealtionshipType/SIMPLE"/>
+    </genEnums>
     <genClasses ecoreClass="Generator.ecore#//Root">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Root/elements"/>
     </genClasses>
@@ -60,6 +65,9 @@
     <genClasses ecoreClass="Generator.ecore#//Models">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Models/models"/>
     </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Children">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Children/children"/>
+    </genClasses>
     <genClasses ecoreClass="Generator.ecore#//Configuration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Configuration/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Configuration/onlyComponents"/>
@@ -74,6 +82,7 @@
     <genClasses ecoreClass="Generator.ecore#//Model">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Model/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Model/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Generator.ecore#//Model/children"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Model/idAtribute"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Model/nameAttribute"/>
     </genClasses>
@@ -83,6 +92,12 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Attribute/component"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/isRequired"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Attribute/mockType"/>
+    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//Child">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Child/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Child/component"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Child/attributeName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Child/type"/>
     </genClasses>
     <genClasses ecoreClass="Generator.ecore#//VisualModule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//VisualModule/exports"/>
@@ -94,14 +109,14 @@
     <genClasses ecoreClass="Generator.ecore#//ContainerModule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//ContainerModule/exports"/>
     </genClasses>
-    <genClasses ecoreClass="Generator.ecore#//Component">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Component/name"/>
+    <genClasses ecoreClass="Generator.ecore#//Component"/>
+    <genClasses ecoreClass="Generator.ecore#//ComponentContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//ComponentContainer/name"/>
     </genClasses>
-    <genClasses ecoreClass="Generator.ecore#//ComponentContainer"/>
-    <genClasses ecoreClass="Generator.ecore#//ComponentBasic">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//ComponentBasic/modelData"/>
-    </genClasses>
+    <genClasses ecoreClass="Generator.ecore#//ComponentBasic"/>
     <genClasses ecoreClass="Generator.ecore#//Crud">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Crud/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/modelData"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Crud/showAsGallery"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//Crud/enableMock"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/create"/>
@@ -112,6 +127,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//Crud/get"/>
     </genClasses>
     <genClasses ecoreClass="Generator.ecore#//SearchComboBox">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Generator.ecore#//SearchComboBox/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//SearchComboBox/modelData"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Generator.ecore#//SearchComboBox/service"/>
     </genClasses>
     <genClasses ecoreClass="Generator.ecore#//Service">

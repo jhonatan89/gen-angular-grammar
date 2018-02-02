@@ -3,6 +3,7 @@ LibraryApp {
 	
 	import services.*
 	import models.*
+	import componentGroup.*
 
 	Modules {
 		VisualModule Main {
@@ -18,7 +19,7 @@ LibraryApp {
 			parent: Main;
 			imports: [];
 			exports: [];
-			route: ["Book.BookCrudComponent","Author.AuthorCrudComponent"];	
+			route: ["Book.BookCrud","Author.AuthorCrud", "Author.Review"];	
 			show:[];
 			defaultRoute: "Book.BookCrudComponent";
 			showLayout: List;
@@ -27,8 +28,8 @@ LibraryApp {
 		ContainerModule Author{
 			parent: Library;
 			imports: [];
-			exports: [AuthorCrud];
-			components: [AuthorCrud];
+			exports: [AuthorCrud,Review];
+			components: [AuthorCrud,Review];
 	    }	
 	    ContainerModule Book{
 			parent: Library;
@@ -37,34 +38,7 @@ LibraryApp {
 			components: [BookCrud];
 	    }				
 	}
-	Components{
-		Crud BookCrud{
-			model: Book;
-			showAsGallery: true;
-			enableMock: true;
-			createService: BookServices.createBook;
-			updateService: BookServices.updateBook;
-			listService: BookServices.searchBooks;
-			listNumService: BookServices.searchNumBooks;
-			deleteService: BookServices.deleteBook;
-			getService: BookServices.getBook;
-			
-		}
-		Crud AuthorCrud{
-			model: Author;
-			createService: AuthorServices.createAuthor;
-			updateService: AuthorServices.updateAuthor;
-			listService: AuthorServices.searchAuthors;
-			listNumService: AuthorServices.searchNumAuthors;
-			deleteService: AuthorServices.deleteAuthor;
-			getService: AuthorServices.getAuthor;
-			
-		}
-		SearchComboBox university{
-			model: University;
-			service: Shared.getUniversity; 
-		}		
-    }
+
     
 }
 	

@@ -1,11 +1,11 @@
-[% import "../../../../utils.egl"; %]
+[% import "../../../../utils.egl"; 
+   var modulesToImport : Bag();
+%]
 
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
 import { SharedModule } from '../../shared/shared.module';
 [% for(component in module.components) {%]
   [% if(component.isKindOf(Crud)){%]
@@ -14,30 +14,53 @@ import { [%=component.name.firstToUpperCase()%]Component } from './[%=getRoutePa
 import { [%=component.name.firstToUpperCase()%]ListComponent } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%]-list/[%=getRoutePathNested(component.name)%]-list.component';
 import { [%=component.name.firstToUpperCase()%]DetailComponent } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%]-detail/[%=getRoutePathNested(component.name)%]-detail.component';
 import { [%=component.name.firstToUpperCase()%]Service } from './[%=getRoutePathNested(component.name)%]/[%=getRoutePathNested(component.name)%].service';
-[%}}%]
-export const routes : Routes = [
-[% for(component in module.components) {%]
-  [% if(component.isKindOf(Crud)){%]
-	  {path:'', redirectTo: 'list', pathMatch: "full"},
-	  {path:'list', component:[%=component.name.firstToUpperCase()%]ListComponent},
-	  {path:'edit/:id', component:[%=component.name.firstToUpperCase()%]DetailComponent},
-	  {path:'create', component:[%=component.name.firstToUpperCase()%]DetailComponent}
-  [%}%]
-]
+	[%}%]
 [%}%]
+[%for(component in module.components.select(c | c.modelData.children.isEmpty() <> true)){%]
+	    [%for(child in component.modelData.children.select(c|c.type.toString() <> 'Simple')){%]
+	    	[%if(modulesToImport.excludes(child.component.getParentName())){%]
+import { [%=child.component.getParentName()%]Module } from '../[%=child.component.getParentName().toLowerCase()%]/[%=child.name.toLowerCase()%].module';
+	    		[% modulesToImport.add(child.component.getParentName()); %]
+	    	[%}%]
+import { [%=child.component.modelData.name.firstToUpperCase()%]ChildComponent } from './[%=getRoutePathNested(component.name)%]/[%=child.name.toLowerCase()%]-child/[%=child.name.toLowerCase()%]-child.component';
+		[%}%]
+[%}%]
+
+
+[% for(component in module.components.select(c|c.isKindOf(Crud))) {%]
+export const [%=component.name.toLowerCase()%]routes : Routes = [
+	{path:'', redirectTo: 'list', pathMatch: "full"},
+    {path:'list', component:[%=component.name.firstToUpperCase()%]ListComponent},
+    {path:'edit/:id', component:[%=component.name.firstToUpperCase()%]DetailComponent},
+    {path:'create', component:[%=component.name.firstToUpperCase()%]DetailComponent}
+] 
+[%}%]
+
+
+
+
+
 
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule,
-    HttpModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    [% modulesToImport.clear(); %]
+    [%for(component in module.components.select(c | c.modelData.children.isEmpty() <> true)){%]
+	    	[%for(child in component.modelData.children.select(c|c.type.toString() <> 'Simple')){%]
+	    		[%if(modulesToImport.excludes(child.component.getParentName())){%]
+   	[%=child.component.getParentName()%]Module [% modulesToImport.add(child.component.getParentName()); %]
+   	[%if(hasMore){%],[%}%]			
+   				[%}%]
+    		[%}%]
+    [%}%]
+    
   ],
-  declarations: [[% for(component in module.components){ if(component.isKindOf(Crud)){%][%=component.name.firstToUpperCase()%]Component , [%=component.name.firstToUpperCase()%]ListComponent, [%=component.name.firstToUpperCase()%]DetailComponent [%}else{%][%=component.name %][%}if(hasMore){%], [%}}%]],
-  exports:[[% for(component in module.exports) {%] [%=component.name.firstToUpperCase()%]Component [%if(hasMore){%],[%}}%]],
+  declarations: [[% for(component in module.components){ if(component.isKindOf(Crud)){%][%=component.name.firstToUpperCase()%]Component , [%=component.name.firstToUpperCase()%]ListComponent, [%=component.name.firstToUpperCase()%]DetailComponent [%}else{%][%=component.name %][%}if(hasMore){%], [%}}%] [%for(component in module.components.select(c | c.modelData.children.isEmpty() <> true)){%][%for(child in component.modelData.children.select(c|c.type.toString() <> 'Simple')){%] , [%=child.component.modelData.name.firstToUpperCase()%]ChildComponent  [%}%][%}%] ],
+  exports:[[% for(component in module.exports) { if(component.isKindOf(Crud)){ %] [%=component.name.firstToUpperCase()%]Component, [%=component.name.firstToUpperCase()%]ListComponent, [%=component.name.firstToUpperCase()%]DetailComponent [%}else{%][%=component.name %] [%} if(hasMore){%],[%}}%]],
   providers: [[% for(component in module.components) {%] [%=component.name.firstToUpperCase()%]Service, Locator[%=component.name.firstToUpperCase()%]Service [%if(hasMore){%],[%}}%]]
 })
 export class [%=module.name.firstToUpperCase()%]Module { }

@@ -1,5 +1,4 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http, URLSearchParams, Response } from '@angular/http';
 import { ServiceMainLocator } from '../../../service-locator-main';
 [%if(component.enableMock == false){%]import { [%=component.create.name.toUpperCase()%], [%=component.update.name.toUpperCase()%], [%=component.get.name.toUpperCase()%], [%=component.list.name.toUpperCase()%], [%=component.listNum.name.toUpperCase()%], [%=component.deleteItem.name.toUpperCase()%], BASE_URL } from './urlService'[%}%]
 

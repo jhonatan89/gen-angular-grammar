@@ -1,0 +1,30 @@
+.child{
+    background: #fbfbfb;
+}
+
+.add-child-btn{
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+.vertical-bottom{
+    display: inline-block;
+    vertical-align: bottom;
+    float: none;
+}
+
+.child-cmp{
+    padding: 20px;
+}
+
+.search-combo-box{
+    padding: 15px;
+}
+
+.thumbnail{
+    box-shadow: 2px 3px #c2c2c2;
+}
+
+.thumbnail h3{
+    color: gray;
+}
